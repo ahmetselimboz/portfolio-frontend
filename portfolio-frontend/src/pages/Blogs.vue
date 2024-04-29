@@ -1,23 +1,88 @@
 <template>
+  <Loader />
+  <navbar></navbar>
+  <section>
+    <div class="pages-title-area">
+      <h4>Blog</h4>
+      <p>
+        You can find the posts where I share my passion for software and
+        technology. In my posts, I share with you the innovations in the industry,
+        my experiences and my insights into technology.
+      </p>
+    </div>
+  </section>
+  <section>
+    <div class="work-panel">
+      <div class="blogs-area">
+        <template v-for="resultBlog in ResultBlog">
+          <div class="blogs-card">
+            <router-link :to="'/blog-detail/' + resultBlog._id">
+              <div class="blogs-card-img-area">
+                <img class="blogs-card-img" :src="resultBlog.mainImg" alt="" />
+              </div>
+            </router-link>
+            <div class="blogs-card-text">
+              <div class="blogs-card-tags">
+                <template v-for="element in resultBlog.tags">
+                  <h5>{{ element.tagName }}</h5>
+                </template>
+              </div>
 
- <navbar></navbar>
-  <h2>Blogs page</h2>
+              <router-link :to="'/blog-detail/' + resultBlog._id">{{ resultBlog.title }}</router-link>
+              <p>{{ resultBlog.desc }}</p>
+            </div>
+          </div>
+        </template>
+
+      </div>
+    </div>
+  </section>
+  <Footer></Footer>
 </template>
 
 
 
-<script >
+<script>
 import Navbar from '../components/navbar.vue'
+import Footer from '../components/footer.vue'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import Loader from '@/components/loader.vue';
 
 
 export default {
   components: {
     "navbar": Navbar,
-  
+    Footer,
+    Loader
   },
   data() {
     return {
+      ResultBlog: [],
 
+    }
+  },
+  mounted() {
+    AOS.init({
+      duration: 1200,
+    });
+
+  },
+  created() {
+    this.fetchBlogs()
+
+  },
+  methods: {
+    async fetchBlogs() {
+      await fetch('https://backend.ahmetselimboz.com.tr/api/blogs')
+        .then(response => response.json())
+        .then(data => {
+          this.ResultBlog = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));;
+
+        })
+        .catch(error => {
+          console.error('Veriler getirilirken hata:', error);
+        });
     }
   }
 }
@@ -122,6 +187,7 @@ export default {
     flex-direction: column;
     margin: 2rem 1.2rem;
   }
+
   .main-img-area {
     width: 100%;
   }
@@ -156,6 +222,7 @@ export default {
   .main-text h3 {
     font-size: 35px;
   }
+
   .main-text h6 {
     font-size: 20px;
     width: 100%;
@@ -175,12 +242,10 @@ export default {
     transform: scale(1.02);
   }
 }
-@media screen and (min-width: 481px) and (max-width: 768px) {
-}
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-}
-@media screen and (min-width: 1025px) and (max-width: 1200px) {
-}
 
+@media screen and (min-width: 481px) and (max-width: 768px) {}
 
+@media screen and (min-width: 769px) and (max-width: 1024px) {}
+
+@media screen and (min-width: 1025px) and (max-width: 1200px) {}
 </style>

@@ -17,7 +17,7 @@
     </nav>
     <div class="res-nav-panel">
       <ul class="res-nav-menu">
-        <li><router-link to="/" class="active res-nav-link">Home</router-link></li>
+        <li><router-link to="/" class="res-nav-link">Home</router-link></li>
         <li><router-link to="/work" class="res-nav-link">Work</router-link></li>
         <li><router-link to="/blog" class="res-nav-link">Blog</router-link></li>
         <li><router-link to="/about" class="res-nav-link">About</router-link></li>
@@ -29,7 +29,7 @@
 
 
 
-<script setup>
+<script>
 
 </script>
 

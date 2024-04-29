@@ -8,6 +8,22 @@
 <script>
 
 
+
+export default {
+    components: {
+        
+    },
+    data() {
+        return {
+
+        }
+    },
+    mounted() {
+
+    }
+
+}
+
 </script>
 
 

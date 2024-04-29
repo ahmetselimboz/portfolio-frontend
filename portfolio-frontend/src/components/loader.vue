@@ -1,88 +1,70 @@
 <template>
-    <div class="loader"><img class="logo" src="../../assets/qr.png"></img></div>
+  <div class="loader" :class="{ 'loader-hidden': !isLoading }">
+    <img class="logo" src="https://minio-api.server.ahmetselimboz.com.tr/mybucket/qrcode.png"></img>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'Loader',
+  name: 'Loader',
+  data() {
+    return {
+      isLoading: true,
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500); 
+  }
 };
 </script>
 
-<style scoped>
-.js-scroll {
-  opacity: 0;
-  transition: opacity 500ms;
-}
-
-.js-scroll.scrolled {
+<style>
+.loader {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
   opacity: 1;
+  transition: opacity 0.75s;
 }
 
-.scrolled.fade-in {
-  animation: fade-in 1s ease-in-out both;
+.loader img {
+  position: absolute;
+  width: 50px;
+  height: auto;
 }
 
-.scrolled.fade-in-bottom {
-  animation: fade-in-bottom 1s ease-in-out both;
+.loader-hidden {
+  opacity: 0;
+ visibility: inherit;
+ z-index: -99;
 }
 
-.scrolled.slide-left {
-  animation: slide-in-left 1s ease-in-out both;
+.loader::after {
+  content: "";
+  width: 75px;
+  height: 75px;
+  border: 10px solid #bcbcbc;
+  border-top-color: rgb(71, 0, 137);
+  border-radius: 50%;
+  animation: loading 0.75s ease infinite;
 }
 
-.scrolled.slide-right {
-  animation: slide-in-right 1s ease-in-out both;
-}
-
-@keyframes slide-in-left {
-  0% {
-    -webkit-transform: translateX(-100px);
-    transform: translateX(-100px);
-    opacity: 0;
+@keyframes loading {
+  from {
+    transform: rotate(0turn);
   }
 
-  100% {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slide-in-right {
-  0% {
-    -webkit-transform: translateX(100px);
-    transform: translateX(100px);
-    opacity: 0;
-  }
-
-  100% {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-in-bottom {
-  0% {
-    -webkit-transform: translateY(50px);
-    transform: translateY(50px);
-    opacity: 0;
-  }
-
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
+  to {
+    transform: rotate(1turn);
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <Loader v-if="isLoading" />
+  <Loader />
   <navbar></navbar>
-  <section v-if="json" class="main-panel">
+  <section class="main-panel">
     <div class="main-text-area">
       <div class="main-text">
         <div class="main-title-img">
@@ -11,18 +11,18 @@
           <h4>Hi there, I'm</h4>
         </div>
         <h3>Ahmet Selim Boz</h3>
-        <h6 >
+        <h6>
           {{ json.mainText }}
         </h6>
       </div>
     </div>
     <div class="main-img-area">
       <div class="main-img">
-        <img  :src="json.sideImg" alt="" class="main-img-img" />
+        <img :src="json.sideImg" alt="" class="main-img-img" />
       </div>
     </div>
   </section>
-  <section v-if="json">
+  <section>
     <div class="now-area">
       <div data-aos="fade-in" class="now-title-area">
         <h4>I'm a</h4>
@@ -45,76 +45,208 @@
         </div>
         <div data-aos="fade-up" data-aos-delay="300" class="now-card  ">
           <i class="bx bx-briefcase-alt" id="icon"></i>
-          <h2 id="title"> {{json.card4.title}} </h2>
+          <h2 id="title"> {{ json.card4.title }} </h2>
           <h4 id="alt-title"> {{ json.card4.text }} </h4>
         </div>
       </div>
     </div>
   </section>
-  <hr class="now-underline  fade-in-bottom" />
+  <hr data-aos="fade-up" class="now-underline" />
+  <section>
+    <div class="work-panel">
+      <div data-aos="fade-up" class="work-title-area">
+        <h5>Portfolio</h5>
+        <h4>Check My Works</h4>
+        <p>
+          You can explore the projects I have developed. Each of them is a special
+          work that reflects my talents and creativity and has been a learning and
+          discovery experience for me.
+        </p>
+      </div>
+      <div class="work-area">
+        <template v-for="item in homeWork">
+          <div data-aos="fade-in" class="work-card">
+            <div class="work-card-img-area">
+              <router-link :to="'/work-detail/' + item._id">
+                <img class="work-card-img" :src="item.mainImg" alt="" />
+              </router-link>
+            </div>
+            <div class="work-card-text">
+              <h5>{{ item.tag }} </h5>
+              <router-link :to="'/work-detail/' + item._id">{{ item.name }}</router-link>
+              <p>{{ item.text }}</p>
+            </div>
+          </div>
+        </template>
+      </div>
+      <div data-aos="fade-up" class="work-btn">
+        <router-link to="/work">See all works<i id="work-icon" class="bx bx-right-arrow-alt"></i></router-link>
+      </div>
+    </div>
+  </section>
+  <hr data-aos="fade-up" class="now-underline" />
+  <div class="work-panel">
+    <div data-aos="fade-up" class="work-title-area">
+      <h5>Jobs</h5>
+      <h4>Look At My Work Experience</h4>
+      <p>
+        You can find the experiences I have gained throughout my career. Each
+        experience has provided new learning opportunities and made me a more
+        well-rounded developer.
+      </p>
+    </div>
+    <div class="exp-area">
+      <template v-for="resultExp in ResultExp">
+        <div class="exp-row">
+          <div data-aos="fade-up" class="exp-card ">
+            <i class="bx bx-caret-right caret"></i>
+            <img :src="resultExp.mainImg" class="exp-img" alt="" />
+            <div class="exp-text-area">
+              <h6>{{ resultExp.tag }}</h6>
+              <h2>{{ resultExp.name }}</h2>
+              <h4>{{ resultExp.date }}</h4>
+              <router-link :to="'/work#' + resultExp._id">More Info<i id="exp-icon"
+                  class="bx bx-right-arrow-alt"></i></router-link>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div data-aos="fade-up" class="work-btn">
+      <router-link to="/work#exp-section">See all experiences<i id="work-icon"
+          class="bx bx-right-arrow-alt"></i></router-link>
+    </div>
+  </div>
 
+  <hr data-aos="fade-up" class="now-underline" />
+  <section>
+    <div class="work-panel">
+      <div data-aos="fade-up" class="work-title-area ">
+        <h5>Blogs</h5>
+        <h4>Latest News</h4>
+        <p>
+          This section is a window into my adventures and solutions in the world
+          of code. In each post, I share my experiences from my software
+          development process and try to guide my readers through technical
+          issues.
+        </p>
+      </div>
+      <div class="blogs-index-area">
+        <template v-for="resultBlog in ResultBlog">
+          <div data-aos="fade-in" class="blogs-index-card">
+            <div class="blogs-index-card-img-area">
+              <router-link :to="'/blog-detail/' + resultBlog._id">
+                <img class="blogs-index-card-img" :src="resultBlog.mainImg" alt="" />
+              </router-link>
+            </div>
+            <div class="blogs-index-card-text">
+              <div class="blogs-index-card-tags">
+                <template v-for="element in resultBlog.tags">
+                  <h5>{{ element.tagName }}</h5>
+                </template>
+              </div>
+              <router-link :to="'/blog-detail/' + resultBlog._id">{{ resultBlog.title }}</router-link>
+              <p>{{ resultBlog.desc }}</p>
+            </div>
+          </div>
+        </template>
+
+
+      </div>
+      <div data-aos="fade-up" class="work-btn">
+        <router-link to="/blog">See all posts<i id="work-icon" class="bx bx-right-arrow-alt"></i></router-link>
+      </div>
+    </div>
+  </section>
+
+
+  <Footer></Footer>
 </template>
-
-
 
 <script>
 import Navbar from '../components/navbar.vue'
-import Loader from '../components/loader.vue'
+import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Loader from '@/components/loader.vue';
 
 export default {
   components: {
     "navbar": Navbar,
-    Loader,
+    Footer,
+    Loader
   },
   data() {
     return {
       json: null,
-      isLoading: true,
+
+      homeWork: null,
+      ResultExp: null,
+      ResultBlog: null,
     }
   },
-  mounted(){
+  mounted() {
     AOS.init({
-      duration: 1200, 
+      duration: 1200,
 
     });
+
   },
   created() {
-    self = this
 
-    fetch('https://portfolio-v2.server.ahmetselimboz.com.tr/api/homepage')
-      .then(response => response.json())
-      .then(data => {
-        self.json = data.data;
-        self.isLoading = false;
-      })
-      .catch(error => {
-        console.error('Veriler getirilirken hata:', error);
-      });
-    //  this.fetchData();
+    this.fetchHomepage()
+    this.fetchWorks()
+    this.fetchExp()
+    this.fetchBlog()
+
   },
   methods: {
-    // async fetchData() {
-    //   try {
-    //     const response = await axios.get('https://portfolio-v2.server.ahmetselimboz.com.tr/api/homepage');
-    //     this.json = response.data.data;
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // },
-
-    fetchData() {
-      // Gerçek veri getirme mantığınızla değiştirin
-      fetch('https://portfolio-v2.server.ahmetselimboz.com.tr/api/homepage')
+    async fetchHomepage() {
+      await fetch('https://backend.ahmetselimboz.com.tr/api/homepage')
         .then(response => response.json())
         .then(data => {
           this.json = data.data;
+
         })
         .catch(error => {
           console.error('Veriler getirilirken hata:', error);
         });
     },
+
+    async fetchWorks() {
+      await fetch('https://backend.ahmetselimboz.com.tr/api/works')
+        .then(response => response.json())
+        .then(data => {
+          this.homeWork = data.data.slice(0, 4).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+
+        })
+        .catch(error => {
+          console.error('Veriler getirilirken hata:', error);
+        });
+    },
+    async fetchExp() {
+      await fetch('https://backend.ahmetselimboz.com.tr/api/experiences')
+        .then(response => response.json())
+        .then(data => {
+          this.ResultExp = data.data.slice(0, 3).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));;
+
+        })
+        .catch(error => {
+          console.error('Veriler getirilirken hata:', error);
+        });
+    },
+    async fetchBlog() {
+      await fetch('https://backend.ahmetselimboz.com.tr/api/blogs')
+        .then(response => response.json())
+        .then(data => {
+          this.ResultBlog = data.data.slice(0, 4).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        })
+        .catch(error => {
+          console.error('Veriler getirilirken hata:', error);
+        });
+    }
 
   },
 
@@ -301,13 +433,7 @@ export default {
   color: var(--purple);
 }
 
-.now-underline {
-  border: none;
-  border-top: 0.1rem solid var(--gray-faded);
-  width: 80%;
-  border-radius: 10px;
-  margin: 2rem auto;
-}
+
 
 .now-row {
   display: flex;
@@ -379,169 +505,6 @@ export default {
 
   .now-title-area h4 {
     font-size: 35px;
-  }
-}
-
-@media screen and (min-width: 481px) and (max-width: 768px) {}
-
-@media screen and (min-width: 769px) and (max-width: 1024px) {}
-
-@media screen and (min-width: 1025px) and (max-width: 1200px) {}
-
-.work-panel {
-  margin: 1rem 0;
-  padding: 2rem 1rem;
-}
-
-.work-title-area {
-  text-align: center;
-}
-
-.work-title-area h5 {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  color: var(--gray);
-}
-
-.work-title-area h4 {
-  font-family: "Poppins", sans-serif;
-  font-weight: 800;
-  font-size: 40px;
-  color: var(--purple);
-}
-
-.work-title-area p {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 20px;
-  color: var(--black);
-  width: 60%;
-  margin: 0 auto;
-}
-
-.work-area {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin: 2rem 8rem;
-}
-
-.work-card {
-  max-width: 46%;
-  flex: 1 0 380px;
-
-  margin: 2rem 1rem;
-}
-
-.work-card-img-area {
-  width: 100%;
-  border-radius: 5px;
-  overflow: hidden;
-  transform: translate(0, 0px);
-  transition: 0.2s ease-in-out;
-  box-shadow: #09011031 0 0 10px 3px;
-}
-
-.work-card-img {
-  width: 100%;
-}
-
-.work-card-img-area:hover {
-  width: 100%;
-  transform: translate(0, -10px);
-}
-
-.work-card-text {
-  padding: 1rem 0rem;
-}
-
-.work-card-text h5 {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 15px;
-  color: var(--gray);
-}
-
-.work-card-text a {
-  font-family: "Poppins", sans-serif;
-  font-weight: 800;
-  font-size: 28px;
-  color: var(--black);
-  transition: 0.2s ease-in-out;
-}
-
-.work-card-text a:hover {
-  color: var(--purple);
-}
-
-.work-card-text p {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 20px;
-  color: var(--gray);
-  margin: 0.5rem 0;
-}
-
-.work-btn a {
-  width: fit-content;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  color: var(--purple);
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  font-size: 20px;
-  border: 3px solid #470089;
-  border-radius: 10px;
-  padding: 1rem;
-}
-
-#work-icon {
-  font-size: 25px;
-  transform: translate(0, 0);
-  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.work-btn a:hover #work-icon {
-  transform: translate(3px, 0);
-}
-
-@media screen and (max-width: 480px) {
-  .work-title-area h4 {
-    font-size: 35px;
-  }
-
-  .work-title-area p {
-    font-size: 16px;
-
-    width: 80%;
-  }
-
-  .work-title-area h5 {
-    font-size: 15px;
-  }
-
-  .work-card {
-    max-width: 100%;
-    flex: 0 380px;
-  }
-
-  .work-area {
-    margin: 2rem 1rem;
-  }
-
-  .work-card-text p {
-    font-size: 18px;
-  }
-
-  .work-btn a {
-    font-size: 14px;
-    border: 2px solid #470089;
-    border-radius: 10px;
-    padding: 0.5rem 0.8rem;
   }
 }
 
