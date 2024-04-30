@@ -1,41 +1,53 @@
 <template>
   <nav>
-      <div class="nav-logo">
-        <a href=""> Ahmet Selim Boz </a>
-      </div>
-      <ul class="nav-menu">
-        <li><router-link to="/" class="nav-link">Home</router-link></li>
-        <li><router-link to="/work" class="nav-link">Work</router-link></li>
-        <li><router-link to="/blog" class="nav-link">Blog</router-link></li>
-        <li><router-link to="/about" class="nav-link">About</router-link></li>
-        <li><router-link to="/contact" class="nav-link">Contact</router-link></li>
-      </ul>
-      <div class="nav-mode">
-        <i class="bx bx-menu" id="menu"></i>
-        <i class="bx bx-sun" id="sun"></i>
-      </div>
-    </nav>
-    <div class="res-nav-panel">
-      <ul class="res-nav-menu">
-        <li><router-link to="/" class="res-nav-link">Home</router-link></li>
-        <li><router-link to="/work" class="res-nav-link">Work</router-link></li>
-        <li><router-link to="/blog" class="res-nav-link">Blog</router-link></li>
-        <li><router-link to="/about" class="res-nav-link">About</router-link></li>
-        <li><router-link to="/contact" class="res-nav-link">Contact</router-link></li>
-      </ul>
+    <div class="nav-logo">
+      <router-link to="/" class="nav-link">Ahmet Selim Boz</router-link>
     </div>
-   
+    <ul class="nav-menu" v-bind:class="{ 'hide': !menuOpen }">
+      <li><router-link to="/" class="nav-link">Home</router-link></li>
+      <li><router-link to="/work" class="nav-link">Work</router-link></li>
+      <li><router-link to="/blog" class="nav-link">Blog</router-link></li>
+      <li><router-link to="/about" class="nav-link">About</router-link></li>
+      <li><router-link to="/contact" class="nav-link">Contact</router-link></li>
+    </ul>
+    <div class="nav-mode" @click="toggleMenu">
+      <i class="bx" :class="[menuOpen ? 'bx-x' : 'bx-menu', 'res-nav-color']" id="menu"></i>
+    </div>
+  </nav>
+  <div class="res-nav-panel" v-bind:class="{ 'res-nav-toggle': menuOpen }">
+    <ul class="res-nav-menu">
+      <li><router-link to="/" class="res-nav-link">Home</router-link></li>
+      <li><router-link to="/work" class="res-nav-link">Work</router-link></li>
+      <li><router-link to="/blog" class="res-nav-link">Blog</router-link></li>
+      <li><router-link to="/about" class="res-nav-link">About</router-link></li>
+      <li><router-link to="/contact" class="res-nav-link">Contact</router-link></li>
+    </ul>
+  </div>
 </template>
 
 
 
 <script>
-
+export default {
+  data() {
+    return {
+      menuOpen: false
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
+    }
+  }
+};
 </script>
 
 
 
 <style scoped>
+.hide {
+  display: none;
+}
 nav {
   display: flex;
   flex-direction: row;
@@ -71,7 +83,7 @@ nav {
 .nav-logo a {
   font-family: "Poppins", sans-serif;
   font-size: 32px;
-  color: var(--black);
+  color: var(--black) !important;
   font-weight: 800;
 }
 
@@ -129,9 +141,9 @@ nav {
   transition: 0.2s ease-in-out;
 }
 
-.res-nav-color {
+/* .res-nav-color {
   color: var(--purple) !important;
-}
+} */
 
 .res-nav-toggle {
   display: block;
