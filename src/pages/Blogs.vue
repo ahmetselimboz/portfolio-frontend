@@ -1,5 +1,5 @@
 <template>
-  <Loader />
+  <Loader></Loader>
   <navbar></navbar>
   <section>
     <div class="pages-title-area">
@@ -54,7 +54,8 @@ export default {
   components: {
     "navbar": Navbar,
     Footer,
-    Loader
+    Loader,
+
   },
   data() {
     return {
@@ -70,7 +71,7 @@ export default {
   },
   created() {
     this.fetchBlogs()
-
+    this.$store.dispatch('setLoading', true);
   },
   methods: {
     async fetchBlogs() {
@@ -78,7 +79,9 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.ResultBlog = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));;
-
+          setTimeout(() => {
+            this.$store.dispatch('setLoading', false);
+          }, 1000)
         })
         .catch(error => {
           console.error('Veriler getirilirken hata:', error);

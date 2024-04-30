@@ -1,5 +1,6 @@
 <template>
   <Loader />
+
   <navbar></navbar>
   <section class="main-panel">
     <div class="main-text-area">
@@ -170,16 +171,18 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '@/components/loader.vue';
 
+
+
 export default {
   components: {
     "navbar": Navbar,
     Footer,
-    Loader
+    Loader,
+
   },
   data() {
     return {
       json: null,
-
       homeWork: null,
       ResultExp: null,
       ResultBlog: null,
@@ -198,7 +201,7 @@ export default {
     this.fetchWorks()
     this.fetchExp()
     this.fetchBlog()
-
+    this.$store.dispatch('setLoading', true);
   },
   methods: {
     async fetchHomepage() {
@@ -206,6 +209,9 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.json = data.data;
+          setTimeout(() => {
+            this.$store.dispatch('setLoading', false);
+          }, 1000)
 
         })
         .catch(error => {

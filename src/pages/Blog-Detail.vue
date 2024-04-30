@@ -1,5 +1,5 @@
 <template>
-     <Loader />
+    <Loader />
     <navbar></navbar>
     <section>
         <div class="blog-panel">
@@ -91,6 +91,7 @@ export default {
     },
     created() {
         this.fetchWorks(this.id)
+        this.$store.dispatch('setLoading', true);
     },
     methods: {
         async fetchWorks(userId) {
@@ -99,8 +100,9 @@ export default {
                 .then(data => {
                     this.result = data.data.result
                     this.Data = data.data.data
-
-
+                    setTimeout(() => {
+                        this.$store.dispatch('setLoading', false);
+                    }, 1000)
                 })
                 .catch(error => {
                     console.error('Veriler getirilirken hata:', error);

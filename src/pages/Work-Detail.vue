@@ -68,6 +68,7 @@ export default {
     },
     created() {
         this.fetchWorks(this.id)
+        this.$store.dispatch('setLoading', true);
     },
     methods: {
         async fetchWorks(userId) {
@@ -75,7 +76,9 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     this.result = data.data
-
+                    setTimeout(() => {
+      this.$store.dispatch('setLoading', false);
+    }, 1000)
 
                 })
                 .catch(error => {
