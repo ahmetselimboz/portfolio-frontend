@@ -36,8 +36,8 @@
             </div>
             <div class="blogs-area">
                 <template v-for="data in Data">
-                    <div class="blogs-card js-scroll fade-in">
-                        <a href="">
+                    <div data-aos="fade-in" class="blogs-card">
+                        <a :href="'/blog-detail/' + data._id">
                             <div class="blogs-card-img-area">
                                 <img class="blogs-card-img" :src="data.mainImg" alt="" />
                             </div>
@@ -49,7 +49,7 @@
                                 </template>
                             </div>
 
-                            <a href="">{{ data.title }}</a>
+                            <a :href="'/blog-detail/' + data._id">{{ data.title }}</a>
                             <p>{{ data.desc }}</p>
                         </div>
                     </div>

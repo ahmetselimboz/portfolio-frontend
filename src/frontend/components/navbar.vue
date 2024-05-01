@@ -1,7 +1,7 @@
 <template>
   <nav>
     <div class="nav-logo">
-      <router-link to="/" class="nav-link">Ahmet Selim Boz</router-link>
+      <a href="/" class="nav-link">Ahmet Selim Boz</a>
     </div>
     <ul class="nav-menu" v-bind:class="{ 'hide': !menuOpen }">
       <li><a href="/" class="nav-link">Home</a></li>
@@ -31,13 +31,24 @@
 export default {
   data() {
     return {
-      menuOpen: false
+      menuOpen: false,
+      title: "Ahmet Selim Boz",
+      desc: "Hi everyone! I'm Selim. I am a computer engineering student who loves to develop, see, research, learn, explore and also defines himself as a backend developer."
     };
   },
   methods: {
     toggleMenu() {
       this.menuOpen = !this.menuOpen;
+    },
+    updateMetaTags() {
+      // Og:title ve og:description meta etiketlerini güncelleyin
+      document.querySelector('meta[property="og:title"]').setAttribute('content', this.title);
+      document.querySelector('meta[property="og:description"]').setAttribute('content', this.desc);
     }
+  },
+  mounted() {
+    document.getElementById('pageTitle').innerText = "Ahmet Selim Boz";
+    this.updateMetaTags();
   }
 };
 </script>
@@ -48,6 +59,7 @@ export default {
 .hide {
   display: none;
 }
+
 nav {
   display: flex;
   flex-direction: row;
@@ -119,6 +131,7 @@ nav {
   cursor: pointer;
   display: none;
 }
+
 .res-nav-panel {
   background-color: var(--white);
   width: fit-content;
@@ -154,6 +167,7 @@ nav {
     display: block;
     padding: 0 1rem;
   }
+
   .nav-menu {
     display: none;
   }
@@ -164,6 +178,7 @@ nav {
     color: var(--black);
     font-weight: 800;
   }
+
   .nav-logo {
     margin-left: 15px;
   }
@@ -181,10 +196,10 @@ nav {
     background-position: center center;
   }
 }
-@media screen and (min-width: 481px) and (max-width: 768px) {
-}
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-}
-@media screen and (min-width: 1025px) and (max-width: 1200px) {
-}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {}
+
+@media screen and (min-width: 1025px) and (max-width: 1200px) {}
 </style>
