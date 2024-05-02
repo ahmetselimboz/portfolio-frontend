@@ -1,11 +1,13 @@
 <template>
-
+    <Navbar></Navbar>
     <router-view></router-view>
 </template>
 
 
 
 <script>
+import Navbar from './frontend/components/navbar.vue';
+
 
 
 

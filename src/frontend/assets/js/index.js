@@ -3,6 +3,6 @@ export default function loader(){
         const loader = document.querySelector(".loader");
         setTimeout(()=>{
             loader.classList.add("loader-hidden");
-        },2000)
+        },1800)
       });
 }
