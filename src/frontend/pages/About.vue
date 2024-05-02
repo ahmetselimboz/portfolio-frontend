@@ -7,7 +7,7 @@
     </div>
   </section>
 
-  <section v-if="resultAbout">
+  <section>
     <div class="about-panel">
       <div v-html="resultAbout.desc1"></div>
       <div class="about-img">

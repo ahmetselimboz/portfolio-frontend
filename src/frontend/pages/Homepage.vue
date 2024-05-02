@@ -1,8 +1,8 @@
-<template >
+<template>
   <Loader />
 
   <navbar></navbar>
-  <section v-if="json" class="main-panel">
+  <section class="main-panel">
     <div class="main-text-area">
       <div class="main-text">
         <div class="main-title-img">
@@ -23,7 +23,7 @@
       </div>
     </div>
   </section>
-  <section v-if="json">
+  <section>
     <div class="now-area">
       <div data-aos="fade-in" class="now-title-area">
         <h4>I'm a</h4>
