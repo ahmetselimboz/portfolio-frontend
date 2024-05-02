@@ -5,7 +5,7 @@
 
 
 <script>
-import Navbar from './frontend/components/navbar.vue';
+
 
 
 

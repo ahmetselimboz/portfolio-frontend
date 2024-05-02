@@ -12,11 +12,11 @@
         <hr class="now-underline" id="footer-line" />
         <div class="footer-box">
             <ul>
-                <li><a href="/" class="footer-menu ">Home</a></li>
-                <li><a href="/work" class="footer-menu">Work</a></li>
-                <li><a href="/blog" class="footer-menu">Blog</a></li>
-                <li><a href="/about" class="footer-menu">About</a></li>
-                <li><a href="/contact" class="footer-menu">Contact</a></li>
+                <li><router-link to="/" class="footer-menu ">Home</router-link></li>
+                <li><router-link to="/work" class="footer-menu">Work</router-link></li>
+                <li><router-link to="/blog" class="footer-menu">Blog</router-link></li>
+                <li><router-link to="/about" class="footer-menu">About</router-link></li>
+                <li><router-link to="/contact" class="footer-menu">Contact</router-link></li>
             </ul>
         </div>
         <hr class="now-underline" id="footer-line" />
