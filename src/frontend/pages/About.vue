@@ -33,7 +33,8 @@ import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Loader from '@/components/loader.vue';
+import Loader from '../components/loader.vue';
+import loader from '../assets/js';
 
 export default {
   components: {
@@ -50,10 +51,11 @@ export default {
     AOS.init({
       duration: 1200,
     });
+    loader();
   },
   created() {
     this.fetchAbout()
-    this.$store.dispatch('setLoading', true);
+
   },
   methods: {
     async fetchAbout() {
@@ -61,9 +63,7 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.resultAbout = data.data
-          setTimeout(() => {
-            this.$store.dispatch('setLoading', false);
-          }, 1000)
+      
         })
         .catch(error => {
           console.error('Veriler getirilirken hata:', error);

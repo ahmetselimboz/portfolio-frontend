@@ -4,11 +4,11 @@
       <router-link to="/" class="nav-link">Ahmet Selim Boz</router-link>
     </div>
     <ul class="nav-menu" v-bind:class="{ 'hide': !menuOpen }">
-      <li><router-link to="/" class="nav-link">Home</router-link></li>
-      <li><router-link to="/work" class="nav-link">Work</router-link></li>
-      <li><router-link to="/blog" class="nav-link">Blog</router-link></li>
-      <li><router-link to="/about" class="nav-link">About</router-link></li>
-      <li><router-link to="/contact" class="nav-link">Contact</router-link></li>
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a href="/work" class="nav-link">Work</a></li>
+      <li><a href="/blog" class="nav-link">Blog</a></li>
+      <li><a href="/about" class="nav-link">About</a></li>
+      <li><a href="/contact" class="nav-link">Contact</a></li>
     </ul>
     <div class="nav-mode" @click="toggleMenu">
       <i class="bx" :class="[menuOpen ? 'bx-x' : 'bx-menu', 'res-nav-color']" id="menu"></i>
@@ -16,11 +16,11 @@
   </nav>
   <div class="res-nav-panel" v-bind:class="{ 'res-nav-toggle': menuOpen }">
     <ul class="res-nav-menu">
-      <li><router-link to="/" class="res-nav-link">Home</router-link></li>
-      <li><router-link to="/work" class="res-nav-link">Work</router-link></li>
-      <li><router-link to="/blog" class="res-nav-link">Blog</router-link></li>
-      <li><router-link to="/about" class="res-nav-link">About</router-link></li>
-      <li><router-link to="/contact" class="res-nav-link">Contact</router-link></li>
+      <li><a href="/" class="res-nav-link">Home</a></li>
+      <li><a href="/work" class="res-nav-link">Work</a></li>
+      <li><a href="/blog" class="res-nav-link">Blog</a></li>
+      <li><a href="/about" class="res-nav-link">About</a></li>
+      <li><a href="/contact" class="res-nav-link">Contact</a></li>
     </ul>
   </div>
 </template>

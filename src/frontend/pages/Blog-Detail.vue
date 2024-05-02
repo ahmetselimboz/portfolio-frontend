@@ -36,8 +36,8 @@
             </div>
             <div class="blogs-area">
                 <template v-for="data in Data">
-                    <div class="blogs-card js-scroll fade-in">
-                        <a href="">
+                    <div data-aos="fade-in" class="blogs-card">
+                        <a :href="'/blog-detail/' + data._id">
                             <div class="blogs-card-img-area">
                                 <img class="blogs-card-img" :src="data.mainImg" alt="" />
                             </div>
@@ -49,7 +49,7 @@
                                 </template>
                             </div>
 
-                            <a href="">{{ data.title }}</a>
+                            <a :href="'/blog-detail/' + data._id">{{ data.title }}</a>
                             <p>{{ data.desc }}</p>
                         </div>
                     </div>
@@ -88,10 +88,12 @@ export default {
             duration: 1200,
         });
         this.userId = this.id;
+
     },
     created() {
         this.fetchWorks(this.id)
         this.$store.dispatch('setLoading', true);
+        
     },
     methods: {
         async fetchWorks(userId) {
@@ -100,6 +102,10 @@ export default {
                 .then(data => {
                     this.result = data.data.result
                     this.Data = data.data.data
+                    
+                    document.getElementById('pageTitle').innerText = this.result.title;
+                    document.querySelector('meta[property="og:title"]').setAttribute('content', this.result.title);
+      document.querySelector('meta[property="og:description"]').setAttribute('content', this.result.desc);
                     setTimeout(() => {
                         this.$store.dispatch('setLoading', false);
                     }, 1000)

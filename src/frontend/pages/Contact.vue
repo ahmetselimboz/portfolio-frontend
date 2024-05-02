@@ -34,7 +34,8 @@
 <script>
 import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
-import Loader from '@/components/loader.vue';
+import Loader from '../components/loader.vue';
+import loader from '../assets/js';
 
 
 export default {
@@ -54,13 +55,11 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('setLoading', true);
+
 
   },
   mounted() {
-    setTimeout(() => {
-      this.$store.dispatch('setLoading', false);
-    }, 1000)
+    loader(); 
   },
   methods: {
     async postData() {

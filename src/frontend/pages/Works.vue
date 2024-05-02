@@ -21,13 +21,13 @@
         <template v-for="item in homeWork">
           <div data-aos="fade-in" class="work-card">
             <div class="work-card-img-area">
-              <router-link :to="'/work-detail/' + item._id">
+              <a :href="'/work-detail/' + item._id">
                 <img class="work-card-img" :src="item.mainImg" alt="" />
-              </router-link>
+              </a>
             </div>
             <div class="work-card-text">
               <h5>{{ item.tag }} </h5>
-              <router-link :to="'/work-detail/' + item._id">{{ item.name }}</router-link>
+              <a :href="'/work-detail/' + item._id">{{ item.name }}</a>
               <p>{{ item.text }}</p>
             </div>
           </div>
@@ -97,7 +97,8 @@ import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Loader from '@/components/loader.vue';
+import Loader from '../components/loader.vue';
+import loader from '../assets/js';
 
 export default {
   components: {
@@ -117,14 +118,14 @@ export default {
     AOS.init({
       duration: 1200,
     });
-
+    loader();
 
   },
   created() {
     this.fetchWorks()
     this.fetchExp()
     this.fetchSkill()
-    this.$store.dispatch('setLoading', true);
+   
   },
   methods: {
     getScoreClass(percent) {
@@ -144,9 +145,7 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.homeWork = data.data.slice(0, 4).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-          setTimeout(() => {
-            this.$store.dispatch('setLoading', false);
-          }, 1000)
+        
 
         })
         .catch(error => {

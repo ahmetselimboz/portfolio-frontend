@@ -169,7 +169,8 @@ import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Loader from '@/components/loader.vue';
+import Loader from '../components/loader.vue';
+import loader from '../assets/js';
 
 
 
@@ -193,7 +194,7 @@ export default {
       duration: 1200,
 
     });
-
+    loader();
   },
   created() {
 
@@ -201,7 +202,7 @@ export default {
     this.fetchWorks()
     this.fetchExp()
     this.fetchBlog()
-    this.$store.dispatch('setLoading', true);
+  
   },
   methods: {
     async fetchHomepage() {
@@ -209,9 +210,7 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.json = data.data;
-          setTimeout(() => {
-            this.$store.dispatch('setLoading', false);
-          }, 1000)
+      
 
         })
         .catch(error => {

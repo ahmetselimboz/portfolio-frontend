@@ -16,11 +16,11 @@
       <div class="blogs-area">
         <template v-for="resultBlog in ResultBlog">
           <div class="blogs-card">
-            <router-link :to="'/blog-detail/' + resultBlog._id">
+            <a :href="'/blog-detail/' + resultBlog._id">
               <div class="blogs-card-img-area">
                 <img class="blogs-card-img" :src="resultBlog.mainImg" alt="" />
               </div>
-            </router-link>
+            </a>
             <div class="blogs-card-text">
               <div class="blogs-card-tags">
                 <template v-for="element in resultBlog.tags">
@@ -28,7 +28,7 @@
                 </template>
               </div>
 
-              <router-link :to="'/blog-detail/' + resultBlog._id">{{ resultBlog.title }}</router-link>
+              <a :href="'/blog-detail/' + resultBlog._id">{{ resultBlog.title }}</a>
               <p>{{ resultBlog.desc }}</p>
             </div>
           </div>
@@ -47,8 +47,8 @@ import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Loader from '@/components/loader.vue';
-
+import Loader from '../components/loader.vue';
+import loader from "@/frontend/assets/js/index.js";
 
 export default {
   components: {
@@ -67,21 +67,22 @@ export default {
     AOS.init({
       duration: 1200,
     });
-
+    loader()
   },
   created() {
     this.fetchBlogs()
-    this.$store.dispatch('setLoading', true);
+  
   },
   methods: {
+    
     async fetchBlogs() {
       await fetch('https://backend.ahmetselimboz.com.tr/api/blogs')
         .then(response => response.json())
         .then(data => {
           this.ResultBlog = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));;
-          setTimeout(() => {
-            this.$store.dispatch('setLoading', false);
-          }, 1000)
+          // setTimeout(() => {
+          //   this.$store.dispatch('setLoading', false);
+          // }, 1000)
         })
         .catch(error => {
           console.error('Veriler getirilirken hata:', error);
