@@ -1,5 +1,5 @@
 <template>
-    <Loader />
+     <Loader />
     <navbar></navbar>
     <section>
         <div class="blog-panel">
@@ -93,7 +93,6 @@ export default {
     created() {
         this.fetchWorks(this.id)
         this.$store.dispatch('setLoading', true);
-        
     },
     methods: {
         async fetchWorks(userId) {
@@ -102,10 +101,6 @@ export default {
                 .then(data => {
                     this.result = data.data.result
                     this.Data = data.data.data
-                    
-                    document.getElementById('pageTitle').innerText = this.result.title;
-                    document.querySelector('meta[property="og:title"]').setAttribute('content', this.result.title);
-      document.querySelector('meta[property="og:description"]').setAttribute('content', this.result.desc);
                     setTimeout(() => {
                         this.$store.dispatch('setLoading', false);
                     }, 1000)

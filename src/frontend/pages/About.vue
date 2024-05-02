@@ -55,7 +55,7 @@ export default {
   },
   created() {
     this.fetchAbout()
-
+    this.$store.dispatch('setLoading', true);
   },
   methods: {
     async fetchAbout() {
@@ -63,7 +63,9 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.resultAbout = data.data
-      
+          setTimeout(() => {
+            this.$store.dispatch('setLoading', false);
+          }, 1000)
         })
         .catch(error => {
           console.error('Veriler getirilirken hata:', error);

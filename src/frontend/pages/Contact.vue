@@ -55,11 +55,13 @@ export default {
     }
   },
   created() {
-
+    this.$store.dispatch('setLoading', true);
 
   },
   mounted() {
-    loader(); 
+    setTimeout(() => {
+      this.$store.dispatch('setLoading', false);
+    }, 1000)
   },
   methods: {
     async postData() {
@@ -93,7 +95,7 @@ export default {
     },
     closeModal() {
       this.showModal = false;
-
+      // Modal kapatıldığında başka işlemler yapabilirsiniz
     }
   }
 

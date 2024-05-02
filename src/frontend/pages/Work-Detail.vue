@@ -70,7 +70,7 @@ export default {
     },
     created() {
         this.fetchWorks(this.id)
-
+        this.$store.dispatch('setLoading', true);
     },
     methods: {
         async fetchWorks(userId) {

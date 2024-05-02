@@ -1,5 +1,5 @@
 <template>
-  <Loader />
+    <Loader />
   <navbar></navbar>
   <section>
     <div class="pages-title-area">
@@ -125,7 +125,7 @@ export default {
     this.fetchWorks()
     this.fetchExp()
     this.fetchSkill()
-   
+    this.$store.dispatch('setLoading', true);
   },
   methods: {
     getScoreClass(percent) {
@@ -145,7 +145,9 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.homeWork = data.data.slice(0, 4).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        
+          setTimeout(() => {
+            this.$store.dispatch('setLoading', false);
+          }, 1000)
 
         })
         .catch(error => {
