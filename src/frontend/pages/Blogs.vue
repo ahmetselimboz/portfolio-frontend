@@ -16,7 +16,7 @@
       <div class="blogs-area">
         <template v-for="resultBlog in ResultBlog">
           <div class="blogs-card">
-            <a :href="'/blog-detail/' + resultBlog._id">
+            <a :href="$router.resolve({name: 'blog', params:{id:resultBlog._id}}).href" >
               <div class="blogs-card-img-area">
                 <img class="blogs-card-img" :src="resultBlog.mainImg" alt="" />
               </div>

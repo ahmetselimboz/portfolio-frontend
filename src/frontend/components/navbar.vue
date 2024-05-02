@@ -6,7 +6,7 @@
     <ul class="nav-menu" v-bind:class="{ 'hide': !menuOpen }">
       <li><a href="/" class="nav-link">Home</a></li>
       <li><a href="/work" class="nav-link">Work</a></li>
-      <li><a href="/blog" class="nav-link">Blog</a></li>
+      <li><a :href="$router.resolve({name: 'blog'}).href" class="nav-link" >Blog</a></li>
       <li><a href="/about" class="nav-link">About</a></li>
       <li><a href="/contact" class="nav-link">Contact</a></li>
     </ul>

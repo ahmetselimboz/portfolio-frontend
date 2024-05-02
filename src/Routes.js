@@ -11,14 +11,14 @@ import Blog_Detail from "./frontend/pages/Blog-Detail.vue";
 const routes = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: "/", component: Homepage },
-    { path: "/homepage", component: Homepage },
-    { path: "/work", component: Works },
-    { path: "/work-detail/:id", component: Work_Detail, props: true },
-    { path: "/blog", component: Blogs },
-    { path: "/blog-detail/:id", component: Blog_Detail, props: true },
-    { path: "/about", component: About },
-    { path: "/contact", component: Contact },
+    { path: "/", name:"homepage", component: Homepage },
+    { path: "/homepage", name:"homepage", component: Homepage },
+    { path: "/work", name:"work", component: Works },
+    { path: "/work-detail/:id", name:"work-detail", component: Work_Detail, props: true },
+    { path: "/blog", name:"blog", component: Blogs },
+    { path: "/blog-detail/:id", name:"blog-detail", component: Blog_Detail, props: true },
+    { path: "/about", name:"about", component: About },
+    { path: "/contact", name:"contact", component: Contact },
   ],
 });
 
