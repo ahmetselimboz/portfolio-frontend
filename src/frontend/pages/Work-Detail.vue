@@ -43,7 +43,7 @@ import Loader from '../components/loader.vue';
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import loader from '../assets/js';
+
 
 
 
@@ -66,7 +66,7 @@ export default {
             duration: 1200,
         });
         this.userId = this.id;
-        loader();
+
     },
     created() {
         this.fetchWorks(this.id)
@@ -78,7 +78,7 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     this.result = data.data
-
+                    this.$store.dispatch('setLoading', false);
 
                 })
                 .catch(error => {

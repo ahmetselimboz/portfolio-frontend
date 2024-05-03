@@ -1,7 +1,7 @@
 <template>
   <Loader />
   <navbar></navbar>
-  <section class="main-panel">
+  <section class="main-panel" v-if="json">
     <div class="main-text-area">
       <div class="main-text">
         <div class="main-title-img">
@@ -22,7 +22,7 @@
       </div>
     </div>
   </section>
-  <section>
+  <section v-if="json">
     <div class="now-area">
       <div data-aos="fade-in" class="now-title-area">
         <h4>I'm a</h4>
@@ -168,7 +168,7 @@ import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Loader from '@/components/loader.vue';
+import Loader from '../components/loader.vue';
 
 
 
@@ -181,7 +181,6 @@ export default {
   data() {
     return {
       json: null,
-
       homeWork: null,
       ResultExp: null,
       ResultBlog: null,
@@ -190,12 +189,9 @@ export default {
   mounted() {
     AOS.init({
       duration: 1200,
-
     });
-    loader();
   },
   created() {
-
     this.fetchHomepage()
     this.fetchWorks()
     this.fetchExp()

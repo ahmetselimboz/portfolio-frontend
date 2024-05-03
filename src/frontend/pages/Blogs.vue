@@ -16,11 +16,11 @@
       <div class="blogs-area">
         <template v-for="resultBlog in ResultBlog">
           <div class="blogs-card">
-            <a :href="$router.resolve({name: 'blog', params:{id:resultBlog._id}}).href" >
+            <router-link :to="'/blog-detail/' + resultBlog._id">
               <div class="blogs-card-img-area">
                 <img class="blogs-card-img" :src="resultBlog.mainImg" alt="" />
               </div>
-            </a>
+            </router-link>
             <div class="blogs-card-text">
               <div class="blogs-card-tags">
                 <template v-for="element in resultBlog.tags">
@@ -28,7 +28,7 @@
                 </template>
               </div>
 
-              <a :href="'/blog-detail/' + resultBlog._id">{{ resultBlog.title }}</a>
+              <router-link :to="'/blog-detail/' + resultBlog._id">{{ resultBlog.title }}</router-link>
               <p>{{ resultBlog.desc }}</p>
             </div>
           </div>
@@ -48,7 +48,7 @@ import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
-import loader from "@/frontend/assets/js/index.js";
+
 
 export default {
   components: {
@@ -66,7 +66,7 @@ export default {
     AOS.init({
       duration: 1200,
     });
-    loader()
+
   },
   created() {
     this.fetchBlogs()

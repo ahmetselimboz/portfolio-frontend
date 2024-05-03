@@ -35,7 +35,7 @@
 import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import Loader from '../components/loader.vue';
-import loader from '../assets/js';
+
 
 
 export default {

@@ -98,7 +98,7 @@ import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
-import loader from '../assets/js';
+
 
 export default {
   components: {
@@ -118,7 +118,7 @@ export default {
     AOS.init({
       duration: 1200,
     });
-    loader();
+
 
   },
   created() {
