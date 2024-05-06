@@ -83,7 +83,7 @@ nav {
 .nav-logo a {
   font-family: "Poppins", sans-serif;
   font-size: 32px;
-  color: var(--black);
+  color: var(--black) !important;
   font-weight: 800;
 }
 
