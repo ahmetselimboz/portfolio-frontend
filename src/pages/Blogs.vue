@@ -1,5 +1,5 @@
 <template>
-  <Loader />
+  <!-- <Loader /> -->
   <navbar></navbar>
   <section>
     <div class="pages-title-area">
@@ -14,7 +14,7 @@
   <section>
     <div class="work-panel">
       <div class="blogs-area">
-        <template v-for="resultBlog in ResultBlog">
+        <template v-for="resultBlog in  variables.result">
           <div class="blogs-card">
             <router-link :to="'/blog-detail/' + resultBlog._id">
               <div class="blogs-card-img-area">
@@ -33,21 +33,58 @@
             </div>
           </div>
         </template>
-
       </div>
     </div>
   </section>
   <Footer></Footer>
 </template>
 
-
-
-<script>
+<script setup>
 import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
+import { reactive, inject, onMounted } from "vue"
+
+
+const appAxios = inject("appAxios")
+
+const variables = reactive({
+  result: []
+})
+
+onMounted(() => {
+  AOS.init({
+    duration: 1200,
+  });
+  fetchBlogs()
+})
+
+const fetchBlogs = async () => {
+  const response = await appAxios.get('/blogs')
+
+  if (response.data.code == 200) {
+    const data = await response.data;
+    variables.result = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return true
+  } else {
+    console.error("Something went wrong!");
+  }
+
+
+}
+
+
+</script>
+
+<!-- <script>
+import Navbar from '../components/navbar.vue'
+import Footer from '../components/footer.vue'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import Loader from '../components/loader.vue';
+import { reactive } from 'vue';
 
 
 export default {
@@ -89,7 +126,7 @@ export default {
     }
   }
 }
-</script>
+</script> -->
 
 
 

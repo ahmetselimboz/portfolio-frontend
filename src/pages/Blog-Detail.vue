@@ -5,22 +5,22 @@
         <div class="blog-panel">
             <div class="blog-area">
                 <div class="blog-tag">
-                    <template v-for="element in result.tags">
+                    <template v-for="element in variables.result.tags">
                         <a>{{ element.tagName }}</a>
                     </template>
                 </div>
                 <div class="blog-title">
-                    <h5>{{ result.title }}</h5>
+                    <h5>{{ variables.result.title }}</h5>
                 </div>
                 <div class="blog-letter">
-                    <h4>{{ result.desc }}</h4>
+                    <h4>{{ variables.result.desc }}</h4>
                 </div>
                 <div class="blog-main-img">
-                    <img :src="result.mainImg" alt="" />
+                    <img :src="variables.result.mainImg" alt="" />
                 </div>
 
                 <div class="blog-content">
-                    <div v-html="result.content">
+                    <div v-html="variables.result.content">
 
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                 <hr class="section-title-line" />
             </div>
             <div class="blogs-area">
-                <template v-for="data in Data">
+                <template v-for="data in variables.Data">
                     <div data-aos="fade-in" class="blogs-card">
                         <a :href="'/blog-detail/' + data._id">
                             <div class="blogs-card-img-area">
@@ -60,7 +60,54 @@
     <Footer></Footer>
 </template>
 
-<script>
+<script setup>
+import Navbar from '../components/navbar.vue'
+// import Loader from '../components/loader.vue';
+import Footer from '../components/footer.vue'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { inject, onMounted, reactive } from 'vue';
+import { useRoute } from "vue-router"
+
+const route = useRoute()
+const appAxios = inject("appAxios")
+
+
+const variables = reactive({
+    result: "",
+    Data: "",
+})
+
+onMounted(() => {
+    AOS.init({
+        duration: 1200,
+    });
+    fetchWorks()
+})
+
+const fetchWorks = async () => {
+    const response = await appAxios.get(`/blogs/${route.params.id}`)
+
+    if (response.data.code == 200) {
+        const data = await response.data;
+        variables.result = data.data.result
+        variables.Data = data.data.data
+
+        document.getElementById('pageTitle').innerText = variables.result.title;
+        document.querySelector('meta[property="og:title"]').setAttribute('content', variables.result.title);
+        document.querySelector('meta[property="og:description"]').setAttribute('content', variables.result.desc);
+
+        return true
+    } else {
+        console.error("Something went wrong!");
+    }
+}
+
+</script>
+
+
+
+<!-- <script>
 import Navbar from '../components/navbar.vue'
 import Loader from '../components/loader.vue';
 import Footer from '../components/footer.vue'
@@ -117,7 +164,7 @@ export default {
     }
 
 }
-</script>
+</script> -->
 
 <style>
 .blog-panel {

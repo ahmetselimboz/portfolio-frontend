@@ -1,94 +1,78 @@
 <template>
-    <Loader />
+    <!-- <Loader /> -->
     <navbar></navbar>
     <div class="work-panel">
         <div class="work-detail-area">
             <div class="work-detail-img-area">
-                <img class="work-detail-img" :src="result.mainImg" alt="" />
+                <img class="work-detail-img" :src="variables.result.mainImg" alt="" />
             </div>
             <div class="work-detail-text-area">
-                <h6>{{ result.tag }}</h6>
-                <h2>{{ result.name }}</h2>
-                <p>{{ result.text }}</p>
+                <h6>{{ variables.result.tag }}</h6>
+                <h2>{{ variables.result.name }}</h2>
+                <p>{{ variables.result.text }}</p>
                 <div class="work-detail-part">
                     <i class="bx bx-caret-right caret-right"></i>
                     <h3>Date:</h3>
-                    <h4>{{ result.date }}</h4>
+                    <h4>{{ variables.result.date }}</h4>
                 </div>
                 <div class="work-detail-part">
                     <i class="bx bx-caret-right caret-right"></i>
                     <h3>Technologies:</h3>
-                    <h4>{{ result.lang }}</h4>
+                    <h4>{{ variables.result.lang }}</h4>
                 </div>
 
                 <div class="work-detail-part">
                     <i class="bx bx-caret-right caret-right"></i>
                     <h3>Link:</h3>
                     <h4>
-                        <a :href="'https://' + result.link" target="_blank">{{ result.link }}</a>
+                        <a :href="'https://' + variables.result.link" target="_blank">{{ variables.result.link }}</a>
                     </h4>
                 </div>
             </div>
         </div>
         <div class="work-detail-desc">
-            <h1 id="text1">{{ result.desc }}</h1>
+            <h1 id="text1">{{ variables.result.desc }}</h1>
         </div>
     </div>
     <Footer></Footer>
 </template>
 
-<script>
+<script setup>
 import Navbar from '../components/navbar.vue'
-import Loader from '../components/loader.vue';
+// import Loader from '../components/loader.vue';
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useRoute } from "vue-router"
+import { inject, onMounted, reactive } from 'vue';
 
+const route = useRoute()
+const appAxios = inject("appAxios")
 
+const variables = reactive({
+    result: {}
+})
 
+onMounted(() => {
+    fetchWorks()
+})
 
+const fetchWorks = async () => {
+    const response = await appAxios.get(`/works/${route.params.id}`)
 
-export default {
-    props: ['id'],
-    components: {
-        "navbar": Navbar,
-        Footer,
-        Loader
-    },
-    data() {
-        return {
-            result: "",
-            userId: null
-        }
-    },
-    mounted() {
-        AOS.init({
-            duration: 1200,
-        });
-        this.userId = this.id;
+    if (response.data.code == 200) {
+        const data = await response.data;
+        variables.result = data.data
 
-    },
-    created() {
-        this.fetchWorks(this.id)
-        this.$store.dispatch('setLoading', true);
-    },
-    methods: {
-        async fetchWorks(userId) {
-            await fetch(`https://backend.ahmetselimboz.com.tr/api/works/${userId}`)
-                .then(response => response.json())
-                .then(data => {
-                    this.result = data.data
-                    this.$store.dispatch('setLoading', false);
-
-                })
-                .catch(error => {
-                    console.error('Veriler getirilirken hata:', error);
-                });
-        },
+        return true
+    } else {
+        console.error("Something went wrong!");
     }
-
 }
+
+
 </script>
+
 
 <style scoped>
 .work-detail-area {

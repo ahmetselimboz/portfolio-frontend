@@ -1,10 +1,10 @@
 <template>
-  <Loader />
+  <!-- <Loader /> -->
   <navbar></navbar>
-  <div class="modal" v-if="showModal">
+  <div class="modal" v-if="variables.showModal">
     <div class="modal-content">
       <span class="close" @click="closeModal">&times;</span>
-      <p><i class='bx bx-check'></i>Mesajınızı Aldım :)</p>
+      <p><i class='bx bx-check'></i>{{ variables.responseMessage }} :)</p>
     </div>
   </div>
   <section>
@@ -18,9 +18,9 @@
   <div class="work-panel">
     <form class="contact-form" @submit.prevent="postData">
       <div class="contact-form-area">
-        <input class="contact-input" type="text" name="name" v-model="name" id="" placeholder="Name" required />
-        <input class="contact-input" type="email" placeholder="Email" name="email" v-model="email" required />
-        <textarea name="message" v-model="message" id="" rows="5" placeholder="Message" required></textarea>
+        <input class="contact-input" type="text" name="name" v-model="variables.result.name" id="" placeholder="Name" required />
+        <input class="contact-input" type="email" placeholder="Email" name="email" v-model="variables.result.email" required />
+        <textarea name="message" v-model="variables.result.message" id="" rows="5" placeholder="Message" required></textarea>
       </div>
       <button type="submit" class="contact-button">
         Send Message
@@ -31,73 +31,60 @@
   <Footer></Footer>
 </template>
 
-<script>
+<script setup>
 import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
-import Loader from '../components/loader.vue';
+import { onMounted, reactive, inject } from 'vue';
+import { useRouter } from 'vue-router';
+// import Loader from '../components/loader.vue';
+
+const router = useRouter()
+const appAxios = inject("appAxios")
 
 
-
-export default {
-  components: {
-    "navbar": Navbar,
-    Footer,
-    Loader
+const variables = reactive({
+  result: {
+    name: "",
+    email: "",
+    message: "",
   },
-  data() {
-    return {
-      name: "",
-      email: "",
-      message: "",
-      responseMessage: '',
-      showModal: false,
+  responseMessage: '',
+  showModal: false,
+})
 
+const postData = async () => {
+  try {
+    const requestOptions = {
+      name: variables.result.name,
+      email: variables.result.email,
+      message: variables.result.message
+    };
+
+    const response = await appAxios.post(`/contact`, requestOptions);
+
+    if (response.data.code == 200) {
+      const data = await response.data;
+
+      variables.responseMessage = data.data;
+      variables.showModal = true;
+
+      variables.result.name = '';
+      variables.result.email = '';
+      variables.result.message = '';
+      router.push("/contact") 
+    } else {
+      setTimeout(() => {
+        window.location.reload()
+      }, 3500)
     }
-  },
-  created() {
-    this.$store.dispatch('setLoading', true);
 
-  },
-  mounted() {
-    setTimeout(() => {
-      this.$store.dispatch('setLoading', false);
-    }, 1000)
-  },
-  methods: {
-    async postData() {
-      try {
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: this.name,
-            email: this.email,
-            message: this.message
-          })
-        };
-
-        const response = await fetch('https://backend.ahmetselimboz.com.tr/api/contact', requestOptions);
-        if (response.ok) {
-          const responseData = await response.json();
-          this.responseMessage = responseData.data;
-          this.showModal = true;
-
-          this.name = '';
-          this.email = '';
-          this.message = '';
-        } else {
-          throw new Error('HTTP error! Status: ' + response.status);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        this.responseMessage = 'Bir hata oluştu.';
-      }
-    },
-    closeModal() {
-      this.showModal = false;
-      // Modal kapatıldığında başka işlemler yapabilirsiniz
-    }
+  } catch (error) {
+    console.error('Error:', error);
+    this.responseMessage = 'Bir hata oluştu.';
   }
+}
+const closeModal = () => {
+  variables.showModal = false;
 
 }
 

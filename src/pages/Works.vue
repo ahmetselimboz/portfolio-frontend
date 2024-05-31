@@ -1,5 +1,5 @@
 <template>
-    <Loader />
+  <!-- <Loader /> -->
   <navbar></navbar>
   <section>
     <div class="pages-title-area">
@@ -18,7 +18,7 @@
         <hr class="section-title-line" />
       </div>
       <div class="work-area">
-        <template v-for="item in homeWork">
+        <template v-for="item in variables.homeWork">
           <div data-aos="fade-in" class="work-card">
             <div class="work-card-img-area">
               <a :href="'/work-detail/' + item._id">
@@ -43,7 +43,7 @@
         <hr class="section-title-line" />
       </div>
       <div class="exp-area-w">
-        <template v-for="resultExp in ResultExp">
+        <template v-for="resultExp in variables.ResultExp">
           <div class="exp-row-w" :id="resultExp._id">
             <div data-aos="fade-up" class="exp-card-w">
               <i class="bx bx-caret-right caret-w"></i>
@@ -68,7 +68,7 @@
         <hr class="section-title-line" />
       </div>
       <div class="skills-area">
-        <template v-for="(resultSkill, index) in ResultSkill" :key="index">
+        <template v-for="(resultSkill, index) in variables.ResultSkill" :key="index">
 
           <div data-aos="fade-in" class="skills-card">
             <div class="skills-card-text">
@@ -91,93 +91,81 @@
 </template>
 
 
-
-<script>
+<script setup>
 import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
+import { onMounted, reactive, inject } from 'vue';
 
+const appAxios = inject("appAxios")
 
-export default {
-  components: {
-    "navbar": Navbar,
-    Footer,
-    Loader,
-    ratings: [],
-  },
-  data() {
-    return {
-      homeWork: null,
-      ResultExp: null,
-      ResultSkill: []
-    }
-  },
-  mounted() {
-    AOS.init({
-      duration: 1200,
-    });
+const variables = reactive({
+  homeWork: null,
+  ResultExp: null,
+  ResultSkill: []
+})
 
+onMounted(() => {
+  AOS.init({
+    duration: 1200,
+  });
 
-  },
-  created() {
-    this.fetchWorks()
-    this.fetchExp()
-    this.fetchSkill()
-    this.$store.dispatch('setLoading', true);
-  },
-  methods: {
-    getScoreClass(percent) {
-      return percent < 40 ? 'bad' : percent < 76 ? 'meh' : 'good';
-    },
-    getGradientStyle(percent) {
-      const ratingColor = this.getColor(percent);
-      return `background: conic-gradient(${ratingColor} ${percent}%, transparent 0 100%)`;
-    },
-    getColor(percent) {
-      // İstenirse yüzdeye göre renk seçimi burada yapılabilir
-      // Örnek:
-      return percent < 40 ? '#e74c3c' : percent < 76 ? '#f1c40f' : '#27ae60';
-    },
-    async fetchWorks() {
-      await fetch('https://backend.ahmetselimboz.com.tr/api/works')
-        .then(response => response.json())
-        .then(data => {
-          this.homeWork = data.data.slice(0, 4).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-          setTimeout(() => {
-            this.$store.dispatch('setLoading', false);
-          }, 1000)
+  fetchWorks()
+  fetchExp()
+  fetchSkill()
+})
 
-        })
-        .catch(error => {
-          console.error('Veriler getirilirken hata:', error);
-        });
-    },
-    async fetchExp() {
-      await fetch('https://backend.ahmetselimboz.com.tr/api/experiences')
-        .then(response => response.json())
-        .then(data => {
-          this.ResultExp = data.data.slice(0, 3).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));;
-
-        })
-        .catch(error => {
-          console.error('Veriler getirilirken hata:', error);
-        });
-    },
-    async fetchSkill() {
-      await fetch('https://backend.ahmetselimboz.com.tr/api/skills')
-        .then(response => response.json())
-        .then(data => {
-          this.ResultSkill = data.data.sort((a, b) => new Date(b.percent) - new Date(a.percent));;
-        })
-        .catch(error => {
-          console.error('Veriler getirilirken hata:', error);
-        });
-    },
-
-  },
+const getScoreClass = (percent) => {
+  return percent < 40 ? 'bad' : percent < 76 ? 'meh' : 'good';
 }
+const getGradientStyle = (percent) => {
+  const ratingColor = getColor(percent);
+  return `background: conic-gradient(${ratingColor} ${percent}%, transparent 0 100%)`;
+}
+const getColor = (percent) => {
+
+  return percent < 40 ? '#e74c3c' : percent < 76 ? '#f1c40f' : '#27ae60';
+}
+const fetchWorks = async () => {
+  const response = await appAxios.get('/works')
+
+  if (response.data.code == 200) {
+    const data = await response.data;
+    variables.homeWork = data.data.slice(0, 4).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return true
+  } else {
+    console.error("Something went wrong!");
+  }
+}
+
+const fetchExp = async () => {
+  const response = await appAxios.get('/experiences')
+
+  if (response.data.code == 200) {
+    const data = await response.data;
+    variables.ResultExp = data.data.slice(0, 3).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    return true
+  } else {
+    console.error("Something went wrong!");
+  }
+}
+
+const fetchSkill = async () => {
+  const response = await appAxios.get('/skills')
+
+  if (response.data.code == 200) {
+    const data = await response.data;
+    variables.ResultSkill = data.data.sort((a, b) => new Date(b.percent) - new Date(a.percent));
+
+    return true
+  } else {
+    console.error("Something went wrong!");
+  }
+}
+
 </script>
 
 

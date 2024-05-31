@@ -1,5 +1,5 @@
 <template>
-  <Loader />
+  <!-- <Loader /> -->
   <navbar></navbar>
   <section>
     <div class="pages-title-area">
@@ -7,75 +7,59 @@
     </div>
   </section>
 
-  <section v-if="resultAbout">
+  <section v-if="variables.result">
     <div class="about-panel">
-      <div v-html="resultAbout.desc1"></div>
+      <div v-html="variables.result.desc1"></div>
       <div class="about-img">
-        <img :src="resultAbout.mainImg" alt="" />
+        <img :src="variables.result.mainImg" alt="" />
       </div>
-      <div v-html="resultAbout.desc2"></div>
+      <div v-html="variables.result.desc2"></div>
       <div class="about-img-area">
-        <img :src="resultAbout.sideImg1" alt="" />
-        <img :src="resultAbout.sideImg2" alt="" />
-        <img :src="resultAbout.sideImg3" alt="" />
+        <img :src="variables.result.sideImg1" alt="" />
+        <img :src="variables.result.sideImg2" alt="" />
+        <img :src="variables.result.sideImg3" alt="" />
       </div>
 
-      <div v-html="resultAbout.desc3"></div>
+      <div v-html="variables.result.desc3"></div>
     </div>
   </section>
   <Footer></Footer>
 </template>
 
-
-
-<script>
+<script setup>
 import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
+import { inject, onMounted, reactive } from 'vue';
 
+const appAxios = inject("appAxios")
 
-export default {
-  components: {
-    "navbar": Navbar,
-    Footer,
-    Loader
-  },
-  data() {
-    return {
-      resultAbout: null
-    }
-  },
-  mounted() {
-    AOS.init({
-      duration: 1200,
-    });
+const variables = reactive({
+  result: {}
+})
 
-  },
-  created() {
-    this.fetchAbout()
-    this.$store.dispatch('setLoading', true);
-  },
-  methods: {
-    async fetchAbout() {
-      await fetch('https://backend.ahmetselimboz.com.tr/api/about')
-        .then(response => response.json())
-        .then(data => {
-          this.resultAbout = data.data
-          setTimeout(() => {
-            this.$store.dispatch('setLoading', false);
-          }, 1000)
-        })
-        .catch(error => {
-          console.error('Veriler getirilirken hata:', error);
-        });
-    },
+onMounted(() => {
+  AOS.init({
+    duration: 1200,
+  });
+  fetchAbout()
+})
+
+const fetchAbout = async () => {
+  const response = await appAxios.get('/about')
+
+  if (response.data.code == 200) {
+    const data = await response.data;
+    variables.result = data.data
+    return true
+  } else {
+    console.error("Something went wrong!");
   }
 }
+
 </script>
-
-
 
 <style>
 .about-panel {
