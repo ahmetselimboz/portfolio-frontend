@@ -1014,13 +1014,14 @@ li {
 .blogs-index-area {
   display: flex;
   margin: 2rem 8rem;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+
 }
 
 .blogs-index-card {
   display: flex;
   flex-direction: column;
-  margin: 2rem auto;
+  margin: 2rem 1rem;
   width: 45%;
 }
 

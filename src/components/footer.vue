@@ -1,12 +1,12 @@
 <template>
-    <footer v-if="footerResult" class="footer">
+    <footer class="footer">
         <div class="footer-box">
             <div class="footer-logo-area">
                 <h2>Ahmet Selim Boz</h2>
             </div>
 
             <div class="footer-logo-title">
-                <h6>{{ footerResult.title }}</h6>
+                <h6>{{ variables.result.title }}</h6>
             </div>
         </div>
         <hr class="now-underline" id="footer-line" />
@@ -22,34 +22,69 @@
         <hr class="now-underline" id="footer-line" />
         <div class="footer-box">
             <div class="footer-info-box">
-                <a :href="footerResult.instagramUrl" target="_blank" class="footer-social">
+                <a :href="variables.result.instagramUrl" target="_blank" class="footer-social">
                     <i class="bx bxl-instagram social-icon"></i>
                     <h3 class="footer-h3">Instagram</h3>
                 </a>
-                <a :href="footerResult.TwitterUrl" target="_blank" class="footer-social">
+                <a :href="variables.result.TwitterUrl" target="_blank" class="footer-social">
                     <i class="bx bxl-twitter social-icon"></i>
                     <h3 class="footer-h3">Twitter</h3>
                 </a>
-                <a :href="footerResult.linkedinUrl" target="_blank" class="footer-social">
+                <a :href="variables.result.linkedinUrl" target="_blank" class="footer-social">
                     <i class="bx bxl-linkedin-square social-icon"></i>
                     <h3 class="footer-h3">Linkedln</h3>
                 </a>
-                <a :href="'mailto:' + footerResult.mail" class="footer-social">
+                <a :href="'mailto:' + variables.result.mail" class="footer-social">
                     <i class="bx bx-envelope social-icon"></i>
-                    <h3 class="footer-h3">ahmetselimbozz@gmail.com</h3>
+                    <h3 class="footer-h3">{{ variables.result.mail }}</h3>
                 </a>
             </div>
         </div>
     </footer>
-    <div v-if="footerResult" class="footer-bottom">
+    <div  class="footer-bottom">
         <h4>
-            2023 © <a :href="footerResult.linkedinUrl">Ahmet Selim Boz</a>
+            2023 © <a :href="variables.result.linkedinUrl">Ahmet Selim Boz</a>
         </h4>
     </div>
 </template>
 
+<script setup>
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { onMounted, reactive, inject } from 'vue';
 
-<script>
+const appAxios = inject("appAxios")
+
+const variables = reactive({
+    result: {}
+})
+
+onMounted(() => {
+    fetchHomepage()
+
+    AOS.init({
+        duration: 1200,
+    });
+
+
+})
+
+const fetchHomepage = async () => {
+    const response = await appAxios.get('/footer')
+  
+    if (response.data.code == 200) {
+        const data = await response.data;
+        variables.result = data.data
+
+        return true
+    } else {
+        console.error("Something went wrong!");
+    }
+}
+</script>
+
+
+<!-- <script>
 export default {
     data() {
         return {
@@ -71,7 +106,7 @@ export default {
     }
 }
 
-</script>
+</script> -->
 
 
 <style scoped>
