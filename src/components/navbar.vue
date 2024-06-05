@@ -4,30 +4,52 @@
       <router-link to="/" class="nav-link">Ahmet Selim Boz</router-link>
     </div>
     <ul class="nav-menu" v-bind:class="{ 'hide': !menuOpen }">
-      <li><router-link to="/" class="nav-link">Home</router-link></li>
-      <li><router-link to="/work" class="nav-link">Work</router-link></li>
-      <li><router-link to="/blog" class="nav-link">Blog</router-link></li>
-      <li><router-link to="/about" class="nav-link">About</router-link></li>
-      <li><router-link to="/contact" class="nav-link">Contact</router-link></li>
+      <li><router-link to="/" class="nav-link">{{ $t('Home') }}</router-link></li>
+      <li><router-link to="/work" class="nav-link">{{ $t('Work') }}</router-link></li>
+      <li><router-link to="/blog" class="nav-link">{{ $t('Blog') }}</router-link></li>
+      <li><router-link to="/about" class="nav-link">{{ $t('About') }}</router-link></li>
+      <li><router-link to="/contact" class="nav-link">{{ $t('Contact') }}</router-link></li>
     </ul>
     <div class="nav-mode" @click="toggleMenu">
-      <i class="bx" :class="[menuOpen ? 'bx-x' : 'bx-menu', 'res-nav-color']" id="menu"></i>
+      <i class="bx" :class="[variables.menuOpen ? 'bx-x' : 'bx-menu', 'res-nav-color']" id="menu"></i>
+      <LanguageSwitcher :class="[variables.langOpen ? 'sun' : 'sun2', 'res-nav-color' ]"/>
     </div>
   </nav>
-  <div class="res-nav-panel" v-bind:class="{ 'res-nav-toggle': menuOpen }">
+  <div class="res-nav-panel" v-bind:class="{ 'res-nav-toggle': variables.menuOpen }">
     <ul class="res-nav-menu">
-      <li><router-link to="/" class="res-nav-link">Home</router-link></li>
-      <li><router-link to="/work" class="res-nav-link">Work</router-link></li>
-      <li><router-link to="/blog" class="res-nav-link">Blog</router-link></li>
-      <li><router-link to="/about" class="res-nav-link">About</router-link></li>
-      <li><router-link to="/contact" class="res-nav-link">Contact</router-link></li>
+      <li><router-link to="/" class="res-nav-link">{{ $t('Home') }}</router-link></li>
+      <li><router-link to="/work" class="res-nav-link">{{ $t('Work') }}</router-link></li>
+      <li><router-link to="/blog" class="res-nav-link">{{ $t('Blog') }}</router-link></li>
+      <li><router-link to="/about" class="res-nav-link">{{ $t('About') }}</router-link></li>
+      <li><router-link to="/contact" class="res-nav-link">{{ $t('Contact') }}</router-link></li>
+      <LanguageSwitcher />
     </ul>
   </div>
+
+
 </template>
 
+<script setup>
+import { reactive } from 'vue';
+import LanguageSwitcher from './languageSwitcher.vue';
 
 
-<script>
+const variables = reactive({
+  menuOpen: false,
+  langOpen: false,
+})
+
+const toggleMenu = () => {
+  variables.menuOpen = !variables.menuOpen;
+}
+
+
+</script>
+
+
+
+
+<!-- <script>
 export default {
   data() {
     return {
@@ -40,7 +62,7 @@ export default {
     }
   }
 };
-</script>
+</script> -->
 
 
 
@@ -48,6 +70,7 @@ export default {
 .hide {
   display: none;
 }
+
 nav {
   display: flex;
   flex-direction: row;
@@ -101,7 +124,7 @@ nav {
   align-items: center;
 }
 
-#sun {
+.sun {
   display: none;
   font-size: 25px;
   color: var(--black);
@@ -109,7 +132,15 @@ nav {
   transition: 0.2s ease-in-out;
 }
 
-#sun:hover {
+.sun2 {
+  display: block;
+  /* font-size: 25px; */
+  color: var(--black);
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.sun:hover {
   color: var(--gray);
 }
 
