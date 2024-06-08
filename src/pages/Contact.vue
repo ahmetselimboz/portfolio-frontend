@@ -9,21 +9,21 @@
   </div>
   <section>
     <div class="pages-title-area">
-      <h4>Contact</h4>
+      <h4>{{ $t('Contact') }}</h4>
       <p style="width: 50%">
-        If you have any questions or want to work together, you can contact to me.
+        {{ $t('Contact_Desc') }}
       </p>
     </div>
   </section>
   <div class="work-panel">
     <form class="contact-form" @submit.prevent="postData">
       <div class="contact-form-area">
-        <input class="contact-input" type="text" name="name" v-model="variables.result.name" id="" placeholder="Name" required />
-        <input class="contact-input" type="email" placeholder="Email" name="email" v-model="variables.result.email" required />
-        <textarea name="message" v-model="variables.result.message" id="" rows="5" placeholder="Message" required></textarea>
+        <input class="contact-input" type="text" name="name" v-model="variables.result.name" id="" :placeholder="$t('Name')" required />
+        <input class="contact-input" type="email" :placeholder="$t('Email')" name="email" v-model="variables.result.email" required />
+        <textarea name="message" v-model="variables.result.message" id="" rows="5" :placeholder="$t('Message')" required></textarea>
       </div>
       <button type="submit" class="contact-button">
-        Send Message
+        {{ $t('Send_Message') }}
       </button>
 
     </form>
@@ -36,6 +36,7 @@ import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import { onMounted, reactive, inject } from 'vue';
 import { useRouter } from 'vue-router';
+import store from '@/store';
 // import Loader from '../components/loader.vue';
 
 const router = useRouter()
@@ -52,12 +53,18 @@ const variables = reactive({
   showModal: false,
 })
 
+onMounted(()=>{
+ 
+})
+
 const postData = async () => {
   try {
+
     const requestOptions = {
       name: variables.result.name,
       email: variables.result.email,
-      message: variables.result.message
+      message: variables.result.message,
+      lang: store.state.lang == true ? 'TR' : 'EN'
     };
 
     const response = await appAxios.post(`/contact`, requestOptions);
@@ -225,6 +232,7 @@ const closeModal = () => {
   border-radius: 10px;
   padding: 1rem;
   transition: 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .contact-button:hover {

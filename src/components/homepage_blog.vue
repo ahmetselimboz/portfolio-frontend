@@ -2,20 +2,17 @@
     <section>
     <div class="work-panel">
       <div data-aos="fade-up" class="work-title-area ">
-        <h5>Blogs</h5>
-        <h4>Latest News</h4>
+        <h5>{{ $t('Blogs') }}</h5>
+        <h4>{{ $t('Latest_News') }}</h4>
         <p>
-          This section is a window into my adventures and solutions in the world
-          of code. In each post, I share my experiences from my software
-          development process and try to guide my readers through technical
-          issues.
+          {{ $t('Latest_News_Desc') }}
         </p>
       </div>
       <div class="blogs-index-area">
         <template v-for="resultBlog in variables.result">
           <div data-aos="fade-in" class="blogs-index-card">
             <div class="blogs-index-card-img-area">
-              <router-link :to="'/blog-detail/' + resultBlog._id">
+              <router-link :to="'/blog-detail/' + resultBlog.slug">
                 <img class="blogs-index-card-img" :src="resultBlog.mainImg" alt="" />
               </router-link>
             </div>
@@ -25,7 +22,7 @@
                   <h5>{{ element.tagName }}</h5>
                 </template>
               </div>
-              <router-link :to="'/blog-detail/' + resultBlog._id">{{ resultBlog.title }}</router-link>
+              <router-link :to="'/blog-detail/' + resultBlog.slug">{{ resultBlog.title }}</router-link>
               <p>{{ resultBlog.desc }}</p>
             </div>
           </div>
@@ -34,16 +31,18 @@
 
       </div>
       <div data-aos="fade-up" class="work-btn">
-        <router-link to="/blog">See all posts<i id="work-icon" class="bx bx-right-arrow-alt"></i></router-link>
+        <router-link to="/blog">{{ $t('See_All_Posts') }}<i id="work-icon" class="bx bx-right-arrow-alt"></i></router-link>
       </div>
     </div>
   </section>
+  <p style="display: none;">{{ switchStateText }}</p>
 </template>
 
 <script setup>
+import store from '@/store';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { onMounted, reactive, inject } from 'vue';
+import { onMounted, reactive, inject, computed } from 'vue';
 
 
 const appAxios = inject("appAxios")
@@ -53,7 +52,7 @@ const variables = reactive({
 })
 
 onMounted(() => {
-    fetchHomepage()
+
 
     AOS.init({
         duration: 1200,
@@ -62,8 +61,16 @@ onMounted(() => {
 
 })
 
-const fetchHomepage = async () => {
-    const response = await appAxios.get('/blogs')
+const switchStateText = computed(async () => {
+  const state = store.state; // Access state
+  let lang = null
+  state.lang == true ? lang = 'TR' : lang = 'EN';
+
+  await fetchHomepage(lang)
+});
+
+const fetchHomepage = async (lang) => {
+    const response = await appAxios.get(`/blogs?lang=${lang}`)
 
     if (response.data.code == 200) {
         const data = await response.data;

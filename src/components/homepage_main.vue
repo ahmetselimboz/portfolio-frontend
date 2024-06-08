@@ -6,7 +6,7 @@
                     <img :src="variables.result.profilImg" alt="" />
                 </div>
                 <div class="main-title-area">
-                    <h4>Hi there, I'm</h4>
+                    <h4>{{ $t('Hello') }}</h4>
                 </div>
                 <h3>Ahmet Selim Boz</h3>
                 <h6>
@@ -23,7 +23,7 @@
     <section>
         <div class="now-area">
             <div data-aos="fade-in" class="now-title-area">
-                <h4>I'm a</h4>
+                <h4>{{ $t('Iam') }}</h4>
             </div>
             <div class="now-row">
                 <div v-if="variables.result.card1" data-aos="fade-up" data-aos-delay="0" class="now-card ">
@@ -49,12 +49,14 @@
             </div>
         </div>
     </section>
+    <p style="display: none;">{{ switchStateText }}</p>
 </template>
 
 <script setup>
+import store from '@/store';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { onMounted, reactive, inject } from 'vue';
+import { onMounted, reactive, inject, computed } from 'vue';
 
 
 const appAxios = inject("appAxios")
@@ -64,8 +66,7 @@ const variables = reactive({
 })
 
 onMounted(() => {
-    fetchHomepage()
-
+   
     AOS.init({
         duration: 1200,
     });
@@ -73,8 +74,16 @@ onMounted(() => {
 
 })
 
-const fetchHomepage = async () => {
-    const response = await appAxios.get('/homepage')
+const switchStateText = computed(() => {
+  const state = store.state; // Access state
+  let lang = null
+  state.lang == true ? lang = 'TR' : lang = 'EN';
+  fetchHomepage(lang)
+});
+
+const fetchHomepage = async (lang) => {
+
+    const response = await appAxios.get(`/homepage?lang=${lang}`)
 
     if (response.data.code == 200) {
         const data = await response.data;

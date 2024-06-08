@@ -3,31 +3,29 @@
   <navbar></navbar>
   <section>
     <div class="pages-title-area">
-      <h4>Work</h4>
+      <h4>{{ $t('Work') }}</h4>
       <p>
-        You can find information about the projects I have realized, the work
-        experience I have gained, the skills I have developed and the thoughts of
-        my valuable references.
+        {{ $t('Work_Desc') }}
       </p>
     </div>
   </section>
   <section>
     <div class="work-panel">
       <div class="section-title">
-        <h3>Projects</h3>
+        <h3>{{ $t('Projects') }}</h3>
         <hr class="section-title-line" />
       </div>
       <div class="work-area">
         <template v-for="item in variables.homeWork">
           <div data-aos="fade-in" class="work-card">
             <div class="work-card-img-area">
-              <a :href="'/work-detail/' + item._id">
+              <a :href="'/work-detail/' + item.slug">
                 <img class="work-card-img" :src="item.mainImg" alt="" />
               </a>
             </div>
             <div class="work-card-text">
               <h5>{{ item.tag }} </h5>
-              <a :href="'/work-detail/' + item._id">{{ item.name }}</a>
+              <a :href="'/work-detail/' + item.slug">{{ item.name }}</a>
               <p>{{ item.text }}</p>
             </div>
           </div>
@@ -39,7 +37,7 @@
   <section id="exp-section">
     <div class="work-panel">
       <div data-aos="fade-up" class="section-title">
-        <h3>Experiences</h3>
+        <h3>{{ $t('Experiences') }}</h3>
         <hr class="section-title-line" />
       </div>
       <div class="exp-area-w">
@@ -64,7 +62,7 @@
   <section>
     <div class="work-panel">
       <div data-aos="fade-up" class="section-title ">
-        <h3>Skills</h3>
+        <h3>{{ $t('Skills') }}</h3>
         <hr class="section-title-line" />
       </div>
       <div class="skills-area">
@@ -87,6 +85,7 @@
       </div>
     </div>
   </section>
+  <p style="display: none;">{{ switchStateText }}</p>
   <Footer></Footer>
 </template>
 
@@ -97,7 +96,8 @@ import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
-import { onMounted, reactive, inject } from 'vue';
+import { onMounted, reactive, inject, computed } from 'vue';
+import store from '@/store';
 
 const appAxios = inject("appAxios")
 
@@ -112,10 +112,18 @@ onMounted(() => {
     duration: 1200,
   });
 
-  fetchWorks()
+
   fetchExp()
   fetchSkill()
 })
+
+const switchStateText = computed(async () => {
+  const state = store.state; // Access state
+  let lang = null
+  state.lang == true ? lang = 'TR' : lang = 'EN';
+  await fetchWorks(lang)
+  await fetchExp(lang)
+});
 
 const getScoreClass = (percent) => {
   return percent < 40 ? 'bad' : percent < 76 ? 'meh' : 'good';
@@ -128,8 +136,8 @@ const getColor = (percent) => {
 
   return percent < 40 ? '#e74c3c' : percent < 76 ? '#f1c40f' : '#27ae60';
 }
-const fetchWorks = async () => {
-  const response = await appAxios.get('/works')
+const fetchWorks = async (lang) => {
+  const response = await appAxios.get(`/works?lang=${lang}`)
 
   if (response.data.code == 200) {
     const data = await response.data;
@@ -140,8 +148,9 @@ const fetchWorks = async () => {
   }
 }
 
-const fetchExp = async () => {
-  const response = await appAxios.get('/experiences')
+const fetchExp = async (lang) => {
+
+  const response = await appAxios.get(`/experiences?lang=${lang}`)
 
   if (response.data.code == 200) {
     const data = await response.data;

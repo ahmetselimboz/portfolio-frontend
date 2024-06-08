@@ -31,13 +31,13 @@
     <section>
         <div class="work-panel">
             <div data-aos="fade-up" class="section-title">
-                <h3>Releated Posts</h3>
+                <h3>{{ $t('Releated_Posts') }}</h3>
                 <hr class="section-title-line" />
             </div>
             <div class="blogs-area">
                 <template v-for="data in variables.Data">
                     <div data-aos="fade-in" class="blogs-card">
-                        <a :href="'/blog-detail/' + data._id">
+                        <a :href="'/blog-detail/' + data.slug">
                             <div class="blogs-card-img-area">
                                 <img class="blogs-card-img" :src="data.mainImg" alt="" />
                             </div>
@@ -49,7 +49,7 @@
                                 </template>
                             </div>
 
-                            <a :href="'/blog-detail/' + data._id">{{ data.title }}</a>
+                            <a :href="'/blog-detail/' + data.slug">{{ data.title }}</a>
                             <p>{{ data.desc }}</p>
                         </div>
                     </div>
@@ -57,6 +57,7 @@
             </div>
         </div>
     </section>
+    <p style="display: none;">{{ switchStateText }}</p>
     <Footer></Footer>
 </template>
 
@@ -66,8 +67,9 @@ import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { inject, onMounted, reactive } from 'vue';
+import { computed, inject, onMounted, reactive } from 'vue';
 import { useRoute } from "vue-router"
+import store from '@/store';
 
 const route = useRoute()
 const appAxios = inject("appAxios")
@@ -82,11 +84,26 @@ onMounted(() => {
     AOS.init({
         duration: 1200,
     });
-    fetchWorks()
+   
+   
 })
 
-const fetchWorks = async () => {
-    const response = await appAxios.get(`/blogs/${route.params.id}`)
+const switchStateText = computed( () => {
+  const state = store.state; // Access state
+  let lang = null
+  state.lang == true ? lang = 'TR' : lang = 'EN';
+  fetchWorks(lang)
+
+});
+
+
+
+function getLastSixCharacters(str) {
+  return str.slice(-6);
+}
+
+const fetchWorks = async (lang) => {
+    const response = await appAxios.get(`/blogs/${getLastSixCharacters(route.params.slug)}?lang=${lang}`)
 
     if (response.data.code == 200) {
         const data = await response.data;

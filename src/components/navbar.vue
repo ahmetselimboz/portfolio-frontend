@@ -3,16 +3,16 @@
     <div class="nav-logo">
       <router-link to="/" class="nav-link">Ahmet Selim Boz</router-link>
     </div>
-    <ul class="nav-menu" v-bind:class="{ 'hide': !menuOpen }">
+    <ul class="nav-menu" v-bind:class="{ 'hide': !variables.menuOpen }">
       <li><router-link to="/" class="nav-link">{{ $t('Home') }}</router-link></li>
       <li><router-link to="/work" class="nav-link">{{ $t('Work') }}</router-link></li>
       <li><router-link to="/blog" class="nav-link">{{ $t('Blog') }}</router-link></li>
       <li><router-link to="/about" class="nav-link">{{ $t('About') }}</router-link></li>
       <li><router-link to="/contact" class="nav-link">{{ $t('Contact') }}</router-link></li>
     </ul>
-    <div class="nav-mode" @click="toggleMenu">
-      <i class="bx" :class="[variables.menuOpen ? 'bx-x' : 'bx-menu', 'res-nav-color']" id="menu"></i>
-      <LanguageSwitcher :class="[variables.langOpen ? 'sun' : 'sun2', 'res-nav-color' ]"/>
+    <div class="nav-mode" >
+      <i class="bx" @click="toggleMenu" :class="[variables.menuOpen ? 'bx-x' : 'bx-menu', 'res-nav-color']" id="menu"></i>
+      <LanguageSwitcher  :class="[variables.langOpen ? 'sun' : 'sun2', 'res-nav-color' ]"/>
     </div>
   </nav>
   <div class="res-nav-panel" v-bind:class="{ 'res-nav-toggle': variables.menuOpen }">
@@ -22,7 +22,7 @@
       <li><router-link to="/blog" class="res-nav-link">{{ $t('Blog') }}</router-link></li>
       <li><router-link to="/about" class="res-nav-link">{{ $t('About') }}</router-link></li>
       <li><router-link to="/contact" class="res-nav-link">{{ $t('Contact') }}</router-link></li>
-      <LanguageSwitcher />
+      <LanguageSwitcher style="margin-top: .8rem;"/>
     </ul>
   </div>
 
@@ -130,6 +130,7 @@ nav {
   color: var(--black);
   cursor: pointer;
   transition: 0.2s ease-in-out;
+
 }
 
 .sun2 {
@@ -155,7 +156,7 @@ nav {
   background-color: var(--white);
   width: fit-content;
   position: absolute;
-  right: 13%;
+  right: 10%;
   padding: 1rem 2rem;
   transform: translate(0px, -20px);
   z-index: 50;
@@ -185,6 +186,10 @@ nav {
   #menu {
     display: block;
     padding: 0 1rem;
+  }
+
+  .sun2{
+    display:none
   }
 
   .nav-menu {

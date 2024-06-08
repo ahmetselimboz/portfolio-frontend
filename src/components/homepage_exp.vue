@@ -1,12 +1,10 @@
 <template>
   <div class="work-panel">
     <div data-aos="fade-up" class="work-title-area">
-      <h5>Jobs</h5>
-      <h4>Look At My Work Experience</h4>
+      <h5>{{ $t('Jobs') }}</h5>
+      <h4>{{ $t('Look_At_My_Work_Experience') }}</h4>
       <p>
-        You can find the experiences I have gained throughout my career. Each
-        experience has provided new learning opportunities and made me a more
-        well-rounded developer.
+        {{ $t('Look_At_My_Work_Experience_Desc') }}
       </p>
     </div>
     <div class="exp-area">
@@ -19,7 +17,7 @@
               <h6>{{ resultExp.tag }}</h6>
               <h2>{{ resultExp.name }}</h2>
               <h4>{{ resultExp.date }}</h4>
-              <router-link :to="'/work#' + resultExp._id">More Info<i id="exp-icon"
+              <router-link :to="'/work#' + resultExp._id">{{ $t('More_Info') }}<i id="exp-icon"
                   class="bx bx-right-arrow-alt"></i></router-link>
             </div>
           </div>
@@ -27,16 +25,18 @@
       </template>
     </div>
     <div data-aos="fade-up" class="work-btn">
-      <router-link to="/work#exp-section">See all experiences<i id="work-icon"
+      <router-link to="/work#exp-section">{{ $t('See_All_Experiences') }}<i id="work-icon"
           class="bx bx-right-arrow-alt"></i></router-link>
     </div>
   </div>
+  <p style="display: none;">{{ switchStateText }}</p>
 </template>
 
 <script setup>
+import store from '@/store';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { onMounted, reactive, inject } from 'vue';
+import { onMounted, reactive, inject, computed } from 'vue';
 
 
 const appAxios = inject("appAxios")
@@ -46,7 +46,7 @@ const variables = reactive({
 })
 
 onMounted(() => {
-    fetchHomepage()
+   
 
     AOS.init({
         duration: 1200,
@@ -55,8 +55,16 @@ onMounted(() => {
 
 })
 
-const fetchHomepage = async () => {
-    const response = await appAxios.get('/experiences')
+const switchStateText = computed(async () => {
+  const state = store.state; // Access state
+  let lang = null
+  state.lang == true ? lang = 'TR' : lang = 'EN';
+
+  await fetchHomepage(lang)
+});
+
+const fetchHomepage = async (lang) => {
+    const response = await appAxios.get(`/experiences?lang=${lang}`)
    
     if (response.data.code == 200) {
         const data = await response.data;

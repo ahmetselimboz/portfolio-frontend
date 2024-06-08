@@ -3,11 +3,9 @@
   <navbar></navbar>
   <section>
     <div class="pages-title-area">
-      <h4>Blog</h4>
+      <h4>{{ $t('Blog') }}</h4>
       <p>
-        You can find the posts where I share my passion for software and
-        technology. In my posts, I share with you the innovations in the industry,
-        my experiences and my insights into technology.
+        {{ $t('Blog_Desc') }}
       </p>
     </div>
   </section>
@@ -16,7 +14,7 @@
       <div class="blogs-area">
         <template v-for="resultBlog in  variables.result">
           <div class="blogs-card">
-            <router-link :to="'/blog-detail/' + resultBlog._id">
+            <router-link :to="'/blog-detail/' + resultBlog.slug">
               <div class="blogs-card-img-area">
                 <img class="blogs-card-img" :src="resultBlog.mainImg" alt="" />
               </div>
@@ -28,7 +26,7 @@
                 </template>
               </div>
 
-              <router-link :to="'/blog-detail/' + resultBlog._id">{{ resultBlog.title }}</router-link>
+              <router-link :to="'/blog-detail/' + resultBlog.slug">{{ resultBlog.title }}</router-link>
               <p>{{ resultBlog.desc }}</p>
             </div>
           </div>
@@ -36,6 +34,7 @@
       </div>
     </div>
   </section>
+  <p style="display: none;">{{ switchStateText }}</p>
   <Footer></Footer>
 </template>
 
@@ -45,7 +44,8 @@ import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
-import { reactive, inject, onMounted } from "vue"
+import { reactive, inject, onMounted, computed } from "vue"
+import store from '@/store';
 
 
 const appAxios = inject("appAxios")
@@ -58,11 +58,20 @@ onMounted(() => {
   AOS.init({
     duration: 1200,
   });
-  fetchBlogs()
+
 })
 
-const fetchBlogs = async () => {
-  const response = await appAxios.get('/blogs')
+const switchStateText = computed( () => {
+  const state = store.state; // Access state
+  let lang = null
+  state.lang == true ? lang = 'TR' : lang = 'EN';
+  fetchBlogs(lang)
+
+});
+
+
+const fetchBlogs = async (lang) => {
+  const response = await appAxios.get(`/blogs?lang=${lang}`)
 
   if (response.data.code == 200) {
     const data = await response.data;
@@ -78,55 +87,6 @@ const fetchBlogs = async () => {
 
 </script>
 
-<!-- <script>
-import Navbar from '../components/navbar.vue'
-import Footer from '../components/footer.vue'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import Loader from '../components/loader.vue';
-import { reactive } from 'vue';
-
-
-export default {
-  components: {
-    "navbar": Navbar,
-    Footer,
-    Loader
-  },
-  data() {
-    return {
-      ResultBlog: [],
-
-    }
-  },
-  mounted() {
-    AOS.init({
-      duration: 1200,
-    });
-
-  },
-  created() {
-    this.fetchBlogs()
-    this.$store.dispatch('setLoading', true);
-  },
-  methods: {
-    
-    async fetchBlogs() {
-      await fetch('https://backend.ahmetselimboz.com.tr/api/blogs')
-        .then(response => response.json())
-        .then(data => {
-          this.ResultBlog = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));;
-          setTimeout(() => {
-            this.$store.dispatch('setLoading', false);
-          }, 1000)
-        })
-        .catch(error => {
-          console.error('Veriler getirilirken hata:', error);
-        });
-    }
-  }
-}
-</script> -->
 
 
 

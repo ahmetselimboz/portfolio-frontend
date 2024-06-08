@@ -12,11 +12,11 @@
         <hr class="now-underline" id="footer-line" />
         <div class="footer-box">
             <ul>
-                <li><router-link to="/" class="footer-menu ">Home</router-link></li>
-                <li><router-link to="/work" class="footer-menu">Work</router-link></li>
-                <li><router-link to="/blog" class="footer-menu">Blog</router-link></li>
-                <li><router-link to="/about" class="footer-menu">About</router-link></li>
-                <li><router-link to="/contact" class="footer-menu">Contact</router-link></li>
+                <li><router-link to="/" class="footer-menu ">{{ $t('Home') }}</router-link></li>
+                <li><router-link to="/work" class="footer-menu">{{ $t('Work') }}</router-link></li>
+                <li><router-link to="/blog" class="footer-menu">{{ $t('Blog') }}</router-link></li>
+                <li><router-link to="/about" class="footer-menu">{{ $t('About') }}</router-link></li>
+                <li><router-link to="/contact" class="footer-menu">{{ $t('Contact') }}</router-link></li>
             </ul>
         </div>
         <hr class="now-underline" id="footer-line" />
@@ -42,8 +42,8 @@
         </div>
     </footer>
     <div  class="footer-bottom">
-        <h4>
-            2023 © <a :href="variables.result.linkedinUrl">Ahmet Selim Boz</a>
+        <h4> 
+            {{ variables.date }} © <a :href="variables.result.linkedinUrl">Ahmet Selim Boz</a>
         </h4>
     </div>
 </template>
@@ -56,12 +56,13 @@ import { onMounted, reactive, inject } from 'vue';
 const appAxios = inject("appAxios")
 
 const variables = reactive({
-    result: {}
+    result: {},
+    date:null
 })
 
 onMounted(() => {
     fetchHomepage()
-
+    variables.date = new Date().getFullYear()
     AOS.init({
         duration: 1200,
     });

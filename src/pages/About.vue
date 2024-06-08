@@ -3,7 +3,7 @@
   <navbar></navbar>
   <section>
     <div class="pages-title-area">
-      <h4>About</h4>
+      <h4>{{ $t('About') }}</h4>
     </div>
   </section>
 
@@ -23,6 +23,7 @@
       <div v-html="variables.result.desc3"></div>
     </div>
   </section>
+  <p style="display: none;">{{ switchStateText }}</p>
   <Footer></Footer>
 </template>
 
@@ -32,8 +33,9 @@ import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
-import { inject, onMounted, reactive } from 'vue';
-
+import { computed, inject, onMounted, reactive } from 'vue';
+import { useI18n } from 'vue-i18n';
+import store from '@/store';
 const appAxios = inject("appAxios")
 
 const variables = reactive({
@@ -44,11 +46,20 @@ onMounted(() => {
   AOS.init({
     duration: 1200,
   });
-  fetchAbout()
+
+
 })
 
-const fetchAbout = async () => {
-  const response = await appAxios.get('/about')
+const switchStateText = computed(() => {
+  const state = store.state; // Access state
+  let lang = null
+  state.lang == true ? lang = 'TR' : lang = 'EN';
+  fetchAbout(lang)
+});
+
+const fetchAbout = async (lang) => {
+
+  const response = await appAxios.get(`/about?lang=${lang}`)
 
   if (response.data.code == 200) {
     const data = await response.data;
@@ -116,6 +127,7 @@ const fetchAbout = async () => {
   .about-panel {
     margin: 1rem 0;
     padding: 2rem 1rem;
+    text-align: center;
   }
 
   .about-panel h5 {
