@@ -5,8 +5,8 @@
     </div>
     <ul class="nav-menu" v-bind:class="{ 'hide': !variables.menuOpen }">
       <li><router-link to="/" class="nav-link">{{ $t('Home') }}</router-link></li>
-      <li><router-link to="/work" class="nav-link">{{ $t('Work') }}</router-link></li>
-      <li><router-link to="/blog" class="nav-link">{{ $t('Blog') }}</router-link></li>
+      <li><router-link to="/works" class="nav-link">{{ $t('Work') }}</router-link></li>
+      <li><router-link to="/blogs" class="nav-link">{{ $t('Blog') }}</router-link></li>
       <li><router-link to="/about" class="nav-link">{{ $t('About') }}</router-link></li>
       <li><router-link to="/contact" class="nav-link">{{ $t('Contact') }}</router-link></li>
     </ul>
@@ -18,8 +18,8 @@
   <div class="res-nav-panel" v-bind:class="{ 'res-nav-toggle': variables.menuOpen }">
     <ul class="res-nav-menu">
       <li><router-link to="/" class="res-nav-link">{{ $t('Home') }}</router-link></li>
-      <li><router-link to="/work" class="res-nav-link">{{ $t('Work') }}</router-link></li>
-      <li><router-link to="/blog" class="res-nav-link">{{ $t('Blog') }}</router-link></li>
+      <li><router-link to="/works" class="res-nav-link">{{ $t('Work') }}</router-link></li>
+      <li><router-link to="/blogs" class="res-nav-link">{{ $t('Blog') }}</router-link></li>
       <li><router-link to="/about" class="res-nav-link">{{ $t('About') }}</router-link></li>
       <li><router-link to="/contact" class="res-nav-link">{{ $t('Contact') }}</router-link></li>
       <LanguageSwitcher style="margin-top: .8rem;"/>

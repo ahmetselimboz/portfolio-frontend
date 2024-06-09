@@ -39,6 +39,7 @@ const messages = {
     Email:"Email",
     Message:"Message",
     Send_Message:"Send Message",
+    Got_Message: "Got Your Message",
   },
   tr: {
     Home: "Ana sayfa",
@@ -76,6 +77,7 @@ const messages = {
     Email:"Email",
     Message:"Mesaj",
     Send_Message:"Mesaj Gönder",
+    Got_Message: "Mesajınızı Aldım",
   },
 };
 

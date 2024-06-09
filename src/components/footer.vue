@@ -13,8 +13,8 @@
         <div class="footer-box">
             <ul>
                 <li><router-link to="/" class="footer-menu ">{{ $t('Home') }}</router-link></li>
-                <li><router-link to="/work" class="footer-menu">{{ $t('Work') }}</router-link></li>
-                <li><router-link to="/blog" class="footer-menu">{{ $t('Blog') }}</router-link></li>
+                <li><router-link to="/works" class="footer-menu">{{ $t('Work') }}</router-link></li>
+                <li><router-link to="/blogs" class="footer-menu">{{ $t('Blog') }}</router-link></li>
                 <li><router-link to="/about" class="footer-menu">{{ $t('About') }}</router-link></li>
                 <li><router-link to="/contact" class="footer-menu">{{ $t('Contact') }}</router-link></li>
             </ul>

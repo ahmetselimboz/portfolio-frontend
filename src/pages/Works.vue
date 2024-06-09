@@ -19,13 +19,13 @@
         <template v-for="item in variables.homeWork">
           <div data-aos="fade-in" class="work-card">
             <div class="work-card-img-area">
-              <a :href="'/work-detail/' + item.slug">
+              <a :href="'/work/' + item.slug">
                 <img class="work-card-img" :src="item.mainImg" alt="" />
               </a>
             </div>
             <div class="work-card-text">
               <h5>{{ item.tag }} </h5>
-              <a :href="'/work-detail/' + item.slug">{{ item.name }}</a>
+              <a :href="'/work/' + item.slug">{{ item.name }}</a>
               <p>{{ item.text }}</p>
             </div>
           </div>

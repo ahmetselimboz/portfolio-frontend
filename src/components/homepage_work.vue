@@ -12,13 +12,13 @@
         <template v-for="item in variables.result">
           <div data-aos="fade-in" class="work-card">
             <div class="work-card-img-area">
-              <router-link :to="'/work-detail/' + item.slug">
+              <router-link :to="'/work/' + item.slug">
                 <img class="work-card-img" :src="item.mainImg" alt="" />
               </router-link>
             </div>
             <div class="work-card-text">
               <h5>{{ item.tag }} </h5>
-              <router-link :to="'/work-detail/' + item.slug">{{ item.name }}</router-link>
+              <router-link :to="'/work/' + item.slug">{{ item.name }}</router-link>
               <p>{{ item.text }}</p>
             </div>
           </div>

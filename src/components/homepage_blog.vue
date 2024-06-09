@@ -12,7 +12,7 @@
         <template v-for="resultBlog in variables.result">
           <div data-aos="fade-in" class="blogs-index-card">
             <div class="blogs-index-card-img-area">
-              <router-link :to="'/blog-detail/' + resultBlog.slug">
+              <router-link :to="'/blog/' + resultBlog.slug">
                 <img class="blogs-index-card-img" :src="resultBlog.mainImg" alt="" />
               </router-link>
             </div>
@@ -22,7 +22,7 @@
                   <h5>{{ element.tagName }}</h5>
                 </template>
               </div>
-              <router-link :to="'/blog-detail/' + resultBlog.slug">{{ resultBlog.title }}</router-link>
+              <router-link :to="'/blog/' + resultBlog.slug">{{ resultBlog.title }}</router-link>
               <p>{{ resultBlog.desc }}</p>
             </div>
           </div>

@@ -14,7 +14,7 @@
       <div class="blogs-area">
         <template v-for="resultBlog in  variables.result">
           <div class="blogs-card">
-            <router-link :to="'/blog-detail/' + resultBlog.slug">
+            <router-link :to="'/blog/' + resultBlog.slug">
               <div class="blogs-card-img-area">
                 <img class="blogs-card-img" :src="resultBlog.mainImg" alt="" />
               </div>
@@ -26,7 +26,7 @@
                 </template>
               </div>
 
-              <router-link :to="'/blog-detail/' + resultBlog.slug">{{ resultBlog.title }}</router-link>
+              <router-link :to="'/blog/' + resultBlog.slug">{{ resultBlog.title }}</router-link>
               <p>{{ resultBlog.desc }}</p>
             </div>
           </div>

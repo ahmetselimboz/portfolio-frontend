@@ -4,7 +4,7 @@
   <div class="modal" v-if="variables.showModal">
     <div class="modal-content">
       <span class="close" @click="closeModal">&times;</span>
-      <p><i class='bx bx-check'></i>{{ variables.responseMessage }} :)</p>
+      <p><i class='bx bx-check'></i>{{ $t('Got_Message') }} :)</p>
     </div>
   </div>
   <section>
