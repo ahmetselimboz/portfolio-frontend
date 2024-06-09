@@ -114,6 +114,8 @@ const switchStateText = computed(() => {
     //     }
     // }, { immediate: true });
 
+    
+
 });
 
 
@@ -130,7 +132,7 @@ const fetchWorks = async (lang) => {
         variables.result = data.data.result
         variables.Data = data.data.data
 
-        document.getElementById('pageTitle').innerText = variables.result.title;
+        // document.getElementById('pageTitle').innerText = variables.result.title;
         
         useHead({
             title: variables.result.title,
