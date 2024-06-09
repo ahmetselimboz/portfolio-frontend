@@ -58,6 +58,7 @@
         </div>
     </section>
     <p style="display: none;">{{ switchStateText }}</p>
+    
     <Footer></Footer>
 </template>
 
