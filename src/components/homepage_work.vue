@@ -25,7 +25,7 @@
         </template>
       </div>
       <div data-aos="fade-up" class="work-btn">
-        <router-link to="/work">{{ $t('See_All_Works') }}<i id="work-icon" class="bx bx-right-arrow-alt"></i></router-link>
+        <router-link to="/works">{{ $t('See_All_Works') }}<i id="work-icon" class="bx bx-right-arrow-alt"></i></router-link>
       </div>
     </div>
   </section>

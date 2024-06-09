@@ -17,7 +17,7 @@
               <h6>{{ resultExp.tag }}</h6>
               <h2>{{ resultExp.name }}</h2>
               <h4>{{ resultExp.date }}</h4>
-              <router-link :to="'/work#' + resultExp._id">{{ $t('More_Info') }}<i id="exp-icon"
+              <router-link :to="'/works#' + resultExp._id">{{ $t('More_Info') }}<i id="exp-icon"
                   class="bx bx-right-arrow-alt"></i></router-link>
             </div>
           </div>
@@ -25,7 +25,7 @@
       </template>
     </div>
     <div data-aos="fade-up" class="work-btn">
-      <router-link to="/work#exp-section">{{ $t('See_All_Experiences') }}<i id="work-icon"
+      <router-link to="/works#exp-section">{{ $t('See_All_Experiences') }}<i id="work-icon"
           class="bx bx-right-arrow-alt"></i></router-link>
     </div>
   </div>

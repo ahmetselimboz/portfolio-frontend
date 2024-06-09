@@ -67,9 +67,10 @@ import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { computed, inject, onMounted, reactive } from 'vue';
+import { computed, inject, onMounted, reactive, watch } from 'vue';
 import { useRoute } from "vue-router"
 import store from '@/store';
+import { useHead } from '@vueuse/head';
 
 const route = useRoute()
 const appAxios = inject("appAxios")
@@ -84,22 +85,40 @@ onMounted(() => {
     AOS.init({
         duration: 1200,
     });
-   
-   
+
+
 })
 
-const switchStateText = computed( () => {
-  const state = store.state; // Access state
-  let lang = null
-  state.lang == true ? lang = 'TR' : lang = 'EN';
-  fetchWorks(lang)
+const switchStateText = computed(() => {
+    const state = store.state; // Access state
+    let lang = null
+    state.lang == true ? lang = 'TR' : lang = 'EN';
+    fetchWorks(lang)
+
+    // watch(variables.result, (newBlog) => {
+    //     if (newBlog) {
+    //         useMeta({
+    //             title: newBlog.title,
+    //             meta: [
+    //                 { property: 'og:title', content: newBlog.title },
+    //                 { property: 'og:description', content: newBlog.desc.slice(0, 100) },
+    //                 { property: 'og:image', content: newBlog.mainImg },
+    //                 { property: 'og:url', content: window.location.href },
+    //                 { name: 'twitter:card', content: 'summary_large_image' },
+    //                 { name: 'twitter:title', content: newBlog.title },
+    //                 { name: 'twitter:description', content: newBlog.desc.slice(0, 100) },
+    //                 { name: 'twitter:image', content: newBlog.mainImg }
+    //             ]
+    //         });
+    //     }
+    // }, { immediate: true });
 
 });
 
 
 
 function getLastSixCharacters(str) {
-  return str.slice(-6);
+    return str.slice(-6);
 }
 
 const fetchWorks = async (lang) => {
@@ -111,9 +130,22 @@ const fetchWorks = async (lang) => {
         variables.Data = data.data.data
 
         document.getElementById('pageTitle').innerText = variables.result.title;
-        document.querySelector('meta[property="og:title"]').setAttribute('content', variables.result.title);
-        document.querySelector('meta[property="og:description"]').setAttribute('content', variables.result.desc);
-
+        
+        useHead({
+            title: variables.result.title,
+            meta: [
+                { name: 'description', content: variables.result.desc.slice(0, 100) },
+                { property: 'og:title', content: variables.result.title },
+                { property: 'og:description', content: variables.result.desc.slice(0, 100) },
+                { property: 'og:image', content: variables.result.mainImg },
+                { property: 'og:url', content: window.location.href },
+                { name: 'twitter:card', content: 'summary_large_image' },
+                { name: 'twitter:title', content: variables.result.title },
+                { name: 'twitter:description', content: variables.result.desc.slice(0, 100) },
+                { name: 'twitter:image', content: variables.result.mainImg }
+            ]
+        });
+        
         return true
     } else {
         console.error("Something went wrong!");
@@ -124,64 +156,7 @@ const fetchWorks = async (lang) => {
 
 
 
-<!-- <script>
-import Navbar from '../components/navbar.vue'
-import Loader from '../components/loader.vue';
-import Footer from '../components/footer.vue'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
-
-
-export default {
-    props: ['id'],
-    components: {
-        "navbar": Navbar,
-        Footer,
-        Loader
-    },
-    data() {
-        return {
-            result: "",
-            Data: "",
-            userId: null
-        }
-    },
-    mounted() {
-        AOS.init({
-            duration: 1200,
-        });
-        this.userId = this.id;
-
-    },
-    created() {
-        this.fetchWorks(this.id)
-        this.$store.dispatch('setLoading', true);
-    },
-    methods: {
-        async fetchWorks(userId) {
-            await fetch(`https://backend.ahmetselimboz.com.tr/api/blogs/${userId}`)
-                .then(response => response.json())
-                .then(data => {
-                    this.result = data.data.result
-                    this.Data = data.data.data
-
-                    document.getElementById('pageTitle').innerText = this.result.title;
-                    document.querySelector('meta[property="og:title"]').setAttribute('content', this.result.title);
-                    document.querySelector('meta[property="og:description"]').setAttribute('content', this.result.desc);
-
-                    setTimeout(() => {
-                        this.$store.dispatch('setLoading', false);
-                    }, 1000)
-                })
-                .catch(error => {
-                    console.error('Veriler getirilirken hata:', error);
-                });
-        },
-    }
-
-}
-</script> -->
 
 <style>
 .blog-panel {

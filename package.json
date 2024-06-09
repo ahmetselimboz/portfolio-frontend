@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/head": "^2.0.0",
     "aos": "^3.0.0-beta.6",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
@@ -17,6 +18,7 @@
     "secure-ls": "^1.2.6",
     "vue": "^3.4.21",
     "vue-i18n": "^10.0.0-beta.1",
+    "vue-meta": "^2.4.0",
     "vue-router": "^4.3.2",
     "vuex": "^4.1.0",
     "vuex-persister": "^1.0.0"
