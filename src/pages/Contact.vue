@@ -1,5 +1,5 @@
 <template>
-  <!-- <Loader /> -->
+  <Loader />
   <navbar></navbar>
   <div class="modal" v-if="variables.showModal">
     <div class="modal-content">
@@ -18,9 +18,12 @@
   <div class="work-panel">
     <form class="contact-form" @submit.prevent="postData">
       <div class="contact-form-area">
-        <input class="contact-input" type="text" name="name" v-model="variables.result.name" id="" :placeholder="$t('Name')" required />
-        <input class="contact-input" type="email" :placeholder="$t('Email')" name="email" v-model="variables.result.email" required />
-        <textarea name="message" v-model="variables.result.message" id="" rows="5" :placeholder="$t('Message')" required></textarea>
+        <input class="contact-input" type="text" name="name" v-model="variables.result.name" id=""
+          :placeholder="$t('Name')" required />
+        <input class="contact-input" type="email" :placeholder="$t('Email')" name="email"
+          v-model="variables.result.email" required />
+        <textarea name="message" v-model="variables.result.message" id="" rows="5" :placeholder="$t('Message')"
+          required></textarea>
       </div>
       <button type="submit" class="contact-button">
         {{ $t('Send_Message') }}
@@ -37,7 +40,7 @@ import Footer from '../components/footer.vue'
 import { onMounted, reactive, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import store from '@/store';
-// import Loader from '../components/loader.vue';
+import Loader from '../components/loader.vue';
 
 const router = useRouter()
 const appAxios = inject("appAxios")
@@ -53,8 +56,11 @@ const variables = reactive({
   showModal: false,
 })
 
-onMounted(()=>{
- 
+onMounted(() => {
+  store.commit("setLoading", true)
+  setTimeout(() => {
+    store.commit("setLoading", false)
+  }, 2000)
 })
 
 const postData = async () => {
@@ -78,7 +84,7 @@ const postData = async () => {
       variables.result.name = '';
       variables.result.email = '';
       variables.result.message = '';
-      router.push("/contact") 
+      router.push("/contact")
     } else {
       setTimeout(() => {
         window.location.reload()

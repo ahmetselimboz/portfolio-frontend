@@ -4,7 +4,19 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import store from '@/store';
+import { computed } from 'vue';
+
+const isLoading = computed(()=>{
+  return store.getters.isLoading;
+})
+</script>
+
+
+
+
+<!-- <script>
 export default {
   name: 'Loader',
   data() {
@@ -19,7 +31,7 @@ export default {
     }
   }
 };
-</script>
+</script> -->
 
 <style>
 

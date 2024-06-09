@@ -1,55 +1,55 @@
 <template>
-    <section class="main-panel">
-        <div class="main-text-area">
-            <div class="main-text">
-                <div class="main-title-img">
-                    <img :src="variables.result.profilImg" alt="" />
-                </div>
-                <div class="main-title-area">
-                    <h4>{{ $t('Hello') }}</h4>
-                </div>
-                <h3>Ahmet Selim Boz</h3>
-                <h6>
-                    {{ variables.result.mainText }}
-                </h6>
-            </div>
+  <section class="main-panel">
+    <div class="main-text-area">
+      <div class="main-text">
+        <div class="main-title-img">
+          <img :src="variables.result.profilImg" alt="" />
         </div>
-        <div class="main-img-area">
-            <div class="main-img">
-                <img :src="variables.result.sideImg" alt="" class="main-img-img" />
-            </div>
+        <div class="main-title-area">
+          <h4>{{ $t('Hello') }}</h4>
         </div>
-    </section>
-    <section>
-        <div class="now-area">
-            <div data-aos="fade-in" class="now-title-area">
-                <h4>{{ $t('Iam') }}</h4>
-            </div>
-            <div class="now-row">
-                <div v-if="variables.result.card1" data-aos="fade-up" data-aos-delay="0" class="now-card ">
-                    <i class="bx bx-code-alt" id="icon"></i>
-                    <h2 id="title">{{ variables.result.card1.title }}</h2>
-                    <h4 id="alt-title"> {{ variables.result.card1.text }} </h4>
-                </div>
-                <div v-if="variables.result.card2" data-aos="fade-up" data-aos-delay="100" class="now-card ">
-                    <i class="bx bx-crown" id="icon"></i>
-                    <h2 id="title"> {{ variables.result.card2.title }} </h2>
-                    <h4 id="alt-title"> {{ variables.result.card2.text }} </h4>
-                </div>
-                <div v-if="variables.result.card3" data-aos="fade-up" data-aos-delay="200" class="now-card ">
-                    <i class="bx bx-book-open" id="icon"></i>
-                    <h2 id="title"> {{ variables.result.card3.title }} </h2>
-                    <h4 id="alt-title"> {{ variables.result.card3.text }} </h4>
-                </div>
-                <div v-if="variables.result.card4" data-aos="fade-up" data-aos-delay="300" class="now-card  ">
-                    <i class="bx bx-briefcase-alt" id="icon"></i>
-                    <h2 id="title"> {{ variables.result.card4.title }} </h2>
-                    <h4 id="alt-title"> {{ variables.result.card4.text }} </h4>
-                </div>
-            </div>
+        <h3>Ahmet Selim Boz</h3>
+        <h6>
+          {{ variables.result.mainText }}
+        </h6>
+      </div>
+    </div>
+    <div class="main-img-area">
+      <div class="main-img">
+        <img :src="variables.result.sideImg" alt="" class="main-img-img" />
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="now-area">
+      <div data-aos="fade-in" class="now-title-area">
+        <h4>{{ $t('Iam') }}</h4>
+      </div>
+      <div class="now-row">
+        <div v-if="variables.result.card1" data-aos="fade-up" data-aos-delay="0" class="now-card ">
+          <i class="bx bx-code-alt" id="icon"></i>
+          <h2 id="title">{{ variables.result.card1.title }}</h2>
+          <h4 id="alt-title"> {{ variables.result.card1.text }} </h4>
         </div>
-    </section>
-    <p style="display: none;">{{ switchStateText }}</p>
+        <div v-if="variables.result.card2" data-aos="fade-up" data-aos-delay="100" class="now-card ">
+          <i class="bx bx-crown" id="icon"></i>
+          <h2 id="title"> {{ variables.result.card2.title }} </h2>
+          <h4 id="alt-title"> {{ variables.result.card2.text }} </h4>
+        </div>
+        <div v-if="variables.result.card3" data-aos="fade-up" data-aos-delay="200" class="now-card ">
+          <i class="bx bx-book-open" id="icon"></i>
+          <h2 id="title"> {{ variables.result.card3.title }} </h2>
+          <h4 id="alt-title"> {{ variables.result.card3.text }} </h4>
+        </div>
+        <div v-if="variables.result.card4" data-aos="fade-up" data-aos-delay="300" class="now-card  ">
+          <i class="bx bx-briefcase-alt" id="icon"></i>
+          <h2 id="title"> {{ variables.result.card4.title }} </h2>
+          <h4 id="alt-title"> {{ variables.result.card4.text }} </h4>
+        </div>
+      </div>
+    </div>
+  </section>
+  <p style="display: none;">{{ switchStateText }}</p>
 </template>
 
 <script setup>
@@ -62,16 +62,13 @@ import { onMounted, reactive, inject, computed } from 'vue';
 const appAxios = inject("appAxios")
 
 const variables = reactive({
-    result: {}
+  result: {}
 })
 
 onMounted(() => {
-   
-    AOS.init({
-        duration: 1200,
-    });
-
-
+  AOS.init({
+    duration: 1200,
+  });
 })
 
 const switchStateText = computed(() => {
@@ -83,16 +80,16 @@ const switchStateText = computed(() => {
 
 const fetchHomepage = async (lang) => {
 
-    const response = await appAxios.get(`/homepage?lang=${lang}`)
+  const response = await appAxios.get(`/homepage?lang=${lang}`)
 
-    if (response.data.code == 200) {
-        const data = await response.data;
-        variables.result = data.data
-      
-        return true
-    } else {
-        console.error("Something went wrong!");
-    }
+  if (response.data.code == 200) {
+    const data = await response.data;
+    variables.result = data.data
+
+    return true
+  } else {
+    console.error("Something went wrong!");
+  }
 }
 
 </script>

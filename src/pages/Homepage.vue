@@ -1,5 +1,5 @@
 <template>
-  <!-- <Loader /> -->
+  <Loader />
   <navbar></navbar>
   <homepageMain></homepageMain>
   <hr data-aos="fade-up" class="now-underline" />
@@ -23,16 +23,17 @@ import homepageMain from '../components/homepage_main.vue'
 import homepageWork from '../components/homepage_work.vue'
 import homepageExp from '../components/homepage_exp.vue'
 import homepageBlog from '../components/homepage_blog.vue'
+import store from '@/store';
 
 onMounted(() => {
   AOS.init({
     duration: 1200,
   });
+
+  store.commit("setLoading", true)
+  setTimeout(() => {
+    store.commit("setLoading", false)
+  }, 2000)
 })
 
 </script>
-
-
-
-
-

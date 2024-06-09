@@ -64,7 +64,7 @@
 
 <script setup>
 import Navbar from '../components/navbar.vue'
-// import Loader from '../components/loader.vue';
+import Loader from '../components/loader.vue';
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -87,7 +87,7 @@ onMounted(() => {
         duration: 1200,
     });
 
-
+    store.commit("setLoading", true)
 })
 
 const switchStateText = computed(() => {
@@ -95,26 +95,6 @@ const switchStateText = computed(() => {
     let lang = null
     state.lang == true ? lang = 'TR' : lang = 'EN';
     fetchWorks(lang)
-
-    // watch(variables.result, (newBlog) => {
-    //     if (newBlog) {
-    //         useMeta({
-    //             title: newBlog.title,
-    //             meta: [
-    //                 { property: 'og:title', content: newBlog.title },
-    //                 { property: 'og:description', content: newBlog.desc.slice(0, 100) },
-    //                 { property: 'og:image', content: newBlog.mainImg },
-    //                 { property: 'og:url', content: window.location.href },
-    //                 { name: 'twitter:card', content: 'summary_large_image' },
-    //                 { name: 'twitter:title', content: newBlog.title },
-    //                 { name: 'twitter:description', content: newBlog.desc.slice(0, 100) },
-    //                 { name: 'twitter:image', content: newBlog.mainImg }
-    //             ]
-    //         });
-    //     }
-    // }, { immediate: true });
-
-    
 
 });
 
@@ -132,8 +112,6 @@ const fetchWorks = async (lang) => {
         variables.result = data.data.result
         variables.Data = data.data.data
 
-        // document.getElementById('pageTitle').innerText = variables.result.title;
-        
         useHead({
             title: variables.result.title,
             meta: [
@@ -148,6 +126,13 @@ const fetchWorks = async (lang) => {
                 { name: 'twitter:image', content: variables.result.mainImg }
             ]
         });
+
+        
+
+        setTimeout(()=>{
+            store.commit("setLoading", false)
+        }, 2000)
+    
         
         return true
     } else {

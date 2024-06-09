@@ -1,5 +1,5 @@
 <template>
-    <!-- <Loader /> -->
+    <Loader />
     <navbar></navbar>
     <div class="work-panel">
         <div class="work-detail-area">
@@ -40,7 +40,7 @@
 
 <script setup>
 import Navbar from '../components/navbar.vue'
-// import Loader from '../components/loader.vue';
+import Loader from '../components/loader.vue';
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -56,18 +56,18 @@ const variables = reactive({
 })
 
 onMounted(() => {
-
+    store.commit("setLoading", true)
 })
 
-const switchStateText = computed( () => {
-  const state = store.state; // Access state
-  let lang = null
-  state.lang == true ? lang = 'TR' : lang = 'EN';
-   fetchWorks(lang)
+const switchStateText = computed(() => {
+    const state = store.state; // Access state
+    let lang = null
+    state.lang == true ? lang = 'TR' : lang = 'EN';
+    fetchWorks(lang)
 });
 
 function getLastSixCharacters(str) {
-  return str.slice(-6);
+    return str.slice(-6);
 }
 
 const fetchWorks = async (lang) => {
@@ -76,7 +76,9 @@ const fetchWorks = async (lang) => {
     if (response.data.code == 200) {
         const data = await response.data;
         variables.result = data.data
-
+        setTimeout(() => {
+            store.commit("setLoading", false)
+        }, 2000)
         return true
     } else {
         console.error("Something went wrong!");

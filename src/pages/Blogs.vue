@@ -1,5 +1,5 @@
 <template>
-  <!-- <Loader /> -->
+  <Loader />
   <navbar></navbar>
   <section>
     <div class="pages-title-area">
@@ -12,7 +12,7 @@
   <section>
     <div class="work-panel">
       <div class="blogs-area">
-        <template v-for="resultBlog in  variables.result">
+        <template v-for="resultBlog in variables.result">
           <div class="blogs-card">
             <router-link :to="'/blog/' + resultBlog.slug">
               <div class="blogs-card-img-area">
@@ -59,9 +59,10 @@ onMounted(() => {
     duration: 1200,
   });
 
+  store.commit("setLoading", true)
 })
 
-const switchStateText = computed( () => {
+const switchStateText = computed(() => {
   const state = store.state; // Access state
   let lang = null
   state.lang == true ? lang = 'TR' : lang = 'EN';
@@ -76,6 +77,12 @@ const fetchBlogs = async (lang) => {
   if (response.data.code == 200) {
     const data = await response.data;
     variables.result = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+
+    setTimeout(() => {
+      store.commit("setLoading", false)
+    }, 2000)
+
     return true
   } else {
     console.error("Something went wrong!");

@@ -1,6 +1,6 @@
 <template>
-    <div class="background"><router-view></router-view></div>
 
+    <div class="background"><router-view></router-view></div>
 </template>
 
 <script setup>

@@ -1,5 +1,5 @@
 <template>
-  <!-- <Loader /> -->
+  <Loader />
   <navbar></navbar>
   <section>
     <div class="pages-title-area">
@@ -47,7 +47,7 @@ onMounted(() => {
     duration: 1200,
   });
 
-
+  store.commit("setLoading", true)
 })
 
 const switchStateText = computed(() => {
@@ -64,6 +64,11 @@ const fetchAbout = async (lang) => {
   if (response.data.code == 200) {
     const data = await response.data;
     variables.result = data.data
+
+    setTimeout(() => {
+      store.commit("setLoading", false)
+    }, 2000)
+
     return true
   } else {
     console.error("Something went wrong!");
