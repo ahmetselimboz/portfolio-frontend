@@ -37,7 +37,7 @@
             <div class="blogs-area">
                 <template v-for="data in variables.Data">
                     <div data-aos="fade-in" class="blogs-card">
-                        <a :href="'/blog-detail/' + data.slug">
+                        <a :href="'/blog/' + data.slug">
                             <div class="blogs-card-img-area">
                                 <img class="blogs-card-img" :src="data.mainImg" alt="" />
                             </div>
@@ -49,7 +49,7 @@
                                 </template>
                             </div>
 
-                            <a :href="'/blog-detail/' + data.slug">{{ data.title }}</a>
+                            <a :href="'/blog/' + data.slug">{{ data.title }}</a>
                             <p>{{ data.desc }}</p>
                         </div>
                     </div>
