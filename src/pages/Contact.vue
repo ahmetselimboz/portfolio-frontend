@@ -37,7 +37,7 @@
 <script setup>
 import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
-import { onMounted, reactive, inject } from 'vue';
+import { onMounted, reactive, inject, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import store from '@/store';
 import Loader from '../components/loader.vue';
@@ -57,10 +57,11 @@ const variables = reactive({
 })
 
 onMounted(() => {
+  store.commit("setLoading", false)
+})
+
+onBeforeMount(() => {
   store.commit("setLoading", true)
-  setTimeout(() => {
-    store.commit("setLoading", false)
-  }, 2000)
 })
 
 const postData = async () => {

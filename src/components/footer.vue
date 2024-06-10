@@ -43,7 +43,7 @@
     </footer>
     <div  class="footer-bottom">
         <h4> 
-            {{ variables.date }} © <a :href="variables.result.linkedinUrl">Ahmet Selim Boz</a>
+            {{ variables.date }} © <a :href="variables.result.linkedinUrl" target="_blank">Ahmet Selim Boz</a>
         </h4>
     </div>
 </template>

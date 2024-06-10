@@ -3,7 +3,8 @@
     <div class="main-text-area">
       <div class="main-text">
         <div class="main-title-img">
-          <img :src="variables.result.profilImg" alt="" />
+          <!-- <img v-lazy="variables.result.profilImg" alt="" /> -->
+          <Lazyload class=''  :url="variables.result.profilImg"/>
         </div>
         <div class="main-title-area">
           <h4>{{ $t('Hello') }}</h4>
@@ -16,7 +17,9 @@
     </div>
     <div class="main-img-area">
       <div class="main-img">
-        <img :src="variables.result.sideImg" alt="" class="main-img-img" />
+        <Lazyload class='main-img-img' :url="variables.result.sideImg"/>
+        <!-- <img class="main-img-img" v-lazy="variables.result.sideImg"> -->
+
       </div>
     </div>
   </section>
@@ -57,7 +60,7 @@ import store from '@/store';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { onMounted, reactive, inject, computed } from 'vue';
-
+import Lazyload from "../components/lazyload.vue"
 
 const appAxios = inject("appAxios")
 
@@ -95,6 +98,8 @@ const fetchHomepage = async (lang) => {
 </script>
 
 <style scoped>
+
+
 .main-panel {
   display: flex;
   flex-direction: row;
@@ -162,7 +167,8 @@ const fetchHomepage = async (lang) => {
 }
 
 .main-img {
-  width: 70%;
+  width: 414px;
+  height: 556px;
   transition: 0.2s ease-in-out;
   overflow: hidden;
   border-radius: 5px;
@@ -173,13 +179,13 @@ const fetchHomepage = async (lang) => {
   width: 100%;
   border-radius: 5px;
   height: inherit;
-  transition: 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   transform: scale(1.015);
 }
-
+/* 
 .main-img-img:hover {
   transform: scale(1.13);
-}
+} */
 
 .main-img:hover {
   box-shadow: #09011055 15px 15px 10px 5px;

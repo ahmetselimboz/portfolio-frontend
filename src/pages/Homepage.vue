@@ -18,7 +18,7 @@ import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
-import { onMounted } from 'vue';
+import { onBeforeMount, onMounted } from 'vue';
 import homepageMain from '../components/homepage_main.vue'
 import homepageWork from '../components/homepage_work.vue'
 import homepageExp from '../components/homepage_exp.vue'
@@ -29,11 +29,11 @@ onMounted(() => {
   AOS.init({
     duration: 1200,
   });
+  store.commit("setLoading", false)
+})
 
+onBeforeMount(() => {
   store.commit("setLoading", true)
-  setTimeout(() => {
-    store.commit("setLoading", false)
-  }, 2000)
 })
 
 </script>

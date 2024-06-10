@@ -4,7 +4,7 @@
     <div class="work-panel">
         <div class="work-detail-area">
             <div class="work-detail-img-area">
-                <img class="work-detail-img" :src="variables.result.mainImg" alt="" />
+                <Lazyload class='work-detail-img'  :url="variables.result.mainImg"/>
             </div>
             <div class="work-detail-text-area">
                 <h6>{{ variables.result.tag }}</h6>
@@ -45,8 +45,9 @@ import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useRoute } from "vue-router"
-import { computed, inject, onMounted, reactive } from 'vue';
+import { computed, inject, onBeforeMount, onMounted, reactive } from 'vue';
 import store from '@/store';
+import Lazyload from '@/components/lazyload.vue';
 
 const route = useRoute()
 const appAxios = inject("appAxios")
@@ -55,8 +56,8 @@ const variables = reactive({
     result: {}
 })
 
-onMounted(() => {
-    store.commit("setLoading", true)
+onBeforeMount(() => {
+  store.commit("setLoading", true)
 })
 
 const switchStateText = computed(() => {
@@ -76,9 +77,7 @@ const fetchWorks = async (lang) => {
     if (response.data.code == 200) {
         const data = await response.data;
         variables.result = data.data
-        setTimeout(() => {
-            store.commit("setLoading", false)
-        }, 2000)
+        store.commit("setLoading", false)
         return true
     } else {
         console.error("Something went wrong!");

@@ -11,13 +11,13 @@
     <div class="about-panel">
       <div v-html="variables.result.desc1"></div>
       <div class="about-img">
-        <img :src="variables.result.mainImg" alt="" />
+        <Lazyload class=''  :url="variables.result.mainImg"/> 
       </div>
       <div v-html="variables.result.desc2"></div>
       <div class="about-img-area">
-        <img :src="variables.result.sideImg1" alt="" />
-        <img :src="variables.result.sideImg2" alt="" />
-        <img :src="variables.result.sideImg3" alt="" />
+        <Lazyload class=''  :url="variables.result.sideImg1"/>
+        <Lazyload class=''  :url="variables.result.sideImg2"/>
+        <Lazyload class=''  :url="variables.result.sideImg3"/>
       </div>
 
       <div v-html="variables.result.desc3"></div>
@@ -33,9 +33,10 @@ import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
-import { computed, inject, onMounted, reactive } from 'vue';
+import { computed, inject, onBeforeMount, onMounted, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 import store from '@/store';
+import Lazyload from '@/components/lazyload.vue';
 const appAxios = inject("appAxios")
 
 const variables = reactive({
@@ -46,9 +47,12 @@ onMounted(() => {
   AOS.init({
     duration: 1200,
   });
+})
 
+onBeforeMount(() => {
   store.commit("setLoading", true)
 })
+
 
 const switchStateText = computed(() => {
   const state = store.state; // Access state
@@ -65,9 +69,7 @@ const fetchAbout = async (lang) => {
     const data = await response.data;
     variables.result = data.data
 
-    setTimeout(() => {
-      store.commit("setLoading", false)
-    }, 2000)
+    store.commit("setLoading", false)
 
     return true
   } else {

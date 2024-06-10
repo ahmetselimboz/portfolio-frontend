@@ -65,7 +65,7 @@ const switchStateText = computed(async () => {
   const state = store.state; // Access state
   let lang = null
   state.lang == true ? lang = 'TR' : lang = 'EN';
-
+  console.log( state.lang);
   await fetchHomepage(lang)
 });
 
@@ -74,7 +74,7 @@ const fetchHomepage = async (lang) => {
 
     if (response.data.code == 200) {
         const data = await response.data;
-        variables.result = data.data
+        variables.result = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
         return true
     } else {

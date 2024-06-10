@@ -16,7 +16,7 @@
           <div class="blogs-card">
             <router-link :to="'/blog/' + resultBlog.slug">
               <div class="blogs-card-img-area">
-                <img class="blogs-card-img" :src="resultBlog.mainImg" alt="" />
+                <Lazyload class='blogs-card-img'  :url="resultBlog.mainImg"/>
               </div>
             </router-link>
             <div class="blogs-card-text">
@@ -44,8 +44,9 @@ import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
-import { reactive, inject, onMounted, computed } from "vue"
+import { reactive, inject, onMounted, computed, onBeforeMount } from "vue"
 import store from '@/store';
+import Lazyload from '@/components/lazyload.vue';
 
 
 const appAxios = inject("appAxios")
@@ -58,9 +59,12 @@ onMounted(() => {
   AOS.init({
     duration: 1200,
   });
+})
 
+onBeforeMount(() => {
   store.commit("setLoading", true)
 })
+
 
 const switchStateText = computed(() => {
   const state = store.state; // Access state
@@ -79,9 +83,7 @@ const fetchBlogs = async (lang) => {
     variables.result = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
 
-    setTimeout(() => {
-      store.commit("setLoading", false)
-    }, 2000)
+    store.commit("setLoading", false)
 
     return true
   } else {

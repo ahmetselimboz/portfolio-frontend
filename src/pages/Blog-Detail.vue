@@ -16,7 +16,7 @@
                     <h4>{{ variables.result.desc }}</h4>
                 </div>
                 <div class="blog-main-img">
-                    <img :src="variables.result.mainImg" alt="" />
+                    <Lazyload class='' :url="variables.result.mainImg" />
                 </div>
 
                 <div class="blog-content">
@@ -39,7 +39,8 @@
                     <div data-aos="fade-in" class="blogs-card">
                         <a :href="'/blog/' + data.slug">
                             <div class="blogs-card-img-area">
-                                <img class="blogs-card-img" :src="data.mainImg" alt="" />
+                                <Lazyload class='blogs-card-img' :url="data.mainImg" />
+                                <!-- <img class="blogs-card-img" :src="data.mainImg" alt="" /> -->
                             </div>
                         </a>
                         <div class="blogs-card-text">
@@ -58,7 +59,7 @@
         </div>
     </section>
     <p style="display: none;">{{ switchStateText }}</p>
-    
+
     <Footer></Footer>
 </template>
 
@@ -68,10 +69,11 @@ import Loader from '../components/loader.vue';
 import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { computed, inject, onMounted, reactive, watch } from 'vue';
+import { computed, inject, onBeforeMount, onMounted, reactive, watch } from 'vue';
 import { useRoute } from "vue-router"
 import store from '@/store';
 import { useHead } from '@vueuse/head';
+import Lazyload from '@/components/lazyload.vue';
 
 const route = useRoute()
 const appAxios = inject("appAxios")
@@ -86,7 +88,10 @@ onMounted(() => {
     AOS.init({
         duration: 1200,
     });
+})
 
+
+onBeforeMount(() => {
     store.commit("setLoading", true)
 })
 
@@ -127,13 +132,11 @@ const fetchWorks = async (lang) => {
             ]
         });
 
-        
 
-        setTimeout(()=>{
-            store.commit("setLoading", false)
-        }, 2000)
-    
-        
+
+        store.commit("setLoading", false)
+
+
         return true
     } else {
         console.error("Something went wrong!");

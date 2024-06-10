@@ -20,7 +20,7 @@
           <div data-aos="fade-in" class="work-card">
             <div class="work-card-img-area">
               <a :href="'/work/' + item.slug">
-                <img class="work-card-img" :src="item.mainImg" alt="" />
+                <Lazyload class='work-card-img'  :url="item.mainImg"/>
               </a>
             </div>
             <div class="work-card-text">
@@ -45,7 +45,7 @@
           <div class="exp-row-w" :id="resultExp._id">
             <div data-aos="fade-up" class="exp-card-w">
               <i class="bx bx-caret-right caret-w"></i>
-              <img :src="resultExp.mainImg" class="exp-img-w" alt="" />
+              <Lazyload class='exp-img-w'  :url="resultExp.mainImg"/>
               <div class="exp-text-area-w">
                 <h6>{{ resultExp.tag }}</h6>
                 <h2>{{ resultExp.name }}</h2>
@@ -96,8 +96,9 @@ import Footer from '../components/footer.vue'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Loader from '../components/loader.vue';
-import { onMounted, reactive, inject, computed } from 'vue';
+import { onMounted, reactive, inject, computed, onBeforeMount } from 'vue';
 import store from '@/store';
+import Lazyload from '@/components/lazyload.vue';
 
 const appAxios = inject("appAxios")
 
@@ -107,11 +108,15 @@ const variables = reactive({
   ResultSkill: []
 })
 
+onBeforeMount(() => {
+  store.commit("setLoading", true)
+})
+
 onMounted(() => {
   AOS.init({
     duration: 1200,
   });
-  store.commit("setLoading", true)
+
 
   fetchExp()
   fetchSkill()
@@ -142,9 +147,7 @@ const fetchWorks = async (lang) => {
   if (response.data.code == 200) {
     const data = await response.data;
     variables.homeWork = data.data.slice(0, 4).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    setTimeout(() => {
-      store.commit("setLoading", false)
-    }, 2000)
+    store.commit("setLoading", false)
 
     return true
   } else {
