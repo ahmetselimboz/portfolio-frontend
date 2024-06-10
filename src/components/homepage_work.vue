@@ -13,7 +13,7 @@
           <div data-aos="fade-in" class="work-card">
             <div class="work-card-img-area">
               <router-link :to="'/work/' + item.slug">
-                <img class="work-card-img" :src="item.mainImg" alt="" />
+                <Lazyload class='work-card-img'  :url="item.mainImg"/>
               </router-link>
             </div>
             <div class="work-card-text">
@@ -37,6 +37,7 @@ import store from '@/store';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { onMounted, reactive, inject, computed } from 'vue';
+import Lazyload from './lazyload.vue';
 
 
 const appAxios = inject("appAxios")

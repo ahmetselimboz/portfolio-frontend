@@ -13,7 +13,8 @@
           <div data-aos="fade-in" class="blogs-index-card">
             <div class="blogs-index-card-img-area">
               <router-link :to="'/blog/' + resultBlog.slug">
-                <img class="blogs-index-card-img" :src="resultBlog.mainImg" alt="" />
+                <Lazyload class='blogs-index-card-img'  :url="resultBlog.mainImg"/>
+               
               </router-link>
             </div>
             <div class="blogs-index-card-text">
@@ -43,6 +44,7 @@ import store from '@/store';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { onMounted, reactive, inject, computed } from 'vue';
+import Lazyload from './lazyload.vue';
 
 
 const appAxios = inject("appAxios")

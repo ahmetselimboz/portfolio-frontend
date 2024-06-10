@@ -12,7 +12,7 @@
         <div class="exp-row">
           <div data-aos="fade-up" class="exp-card ">
             <i class="bx bx-caret-right caret"></i>
-            <img :src="resultExp.mainImg" class="exp-img" alt="" />
+            <Lazyload class='exp-img'  :url="resultExp.mainImg"/>
             <div class="exp-text-area">
               <h6>{{ resultExp.tag }}</h6>
               <h2>{{ resultExp.name }}</h2>
@@ -37,6 +37,7 @@ import store from '@/store';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { onMounted, reactive, inject, computed } from 'vue';
+import Lazyload from './lazyload.vue';
 
 
 const appAxios = inject("appAxios")
