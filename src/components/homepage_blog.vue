@@ -67,7 +67,6 @@ const switchStateText = computed(async () => {
   const state = store.state; // Access state
   let lang = null
   state.lang == true ? lang = 'TR' : lang = 'EN';
-  console.log( state.lang);
   await fetchHomepage(lang)
 });
 

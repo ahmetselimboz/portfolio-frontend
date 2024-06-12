@@ -15,7 +15,7 @@ onBeforeMount(() => {
 const props = defineProps(["class", "url"])
 
 const handleImageLoad = (event) => {
-    console.log("object");
+
     event.target.classList.add('is-loaded');
 }
 
