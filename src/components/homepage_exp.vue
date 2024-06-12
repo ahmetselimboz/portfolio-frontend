@@ -50,7 +50,7 @@ onMounted(() => {
    
 
     AOS.init({
-        duration: 600,
+        duration: 400,
     });
 
 
