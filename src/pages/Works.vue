@@ -20,7 +20,7 @@
           <div data-aos="fade-in" class="work-card">
             <div class="work-card-img-area">
               <a :href="'/work/' + item.slug">
-                <Lazyload class='work-card-img'  :url="item.mainImg"/>
+                <Lazyload class='work-card-img' :url="item.mainImg" />
               </a>
             </div>
             <div class="work-card-text">
@@ -45,7 +45,7 @@
           <div class="exp-row-w" :id="resultExp._id">
             <div data-aos="fade-up" class="exp-card-w">
               <i class="bx bx-caret-right caret-w"></i>
-              <Lazyload class='exp-img-w'  :url="resultExp.mainImg"/>
+              <Lazyload class='exp-img-w' :url="resultExp.mainImg" />
               <div class="exp-text-area-w">
                 <h6>{{ resultExp.tag }}</h6>
                 <h2>{{ resultExp.name }}</h2>
@@ -114,7 +114,7 @@ onBeforeMount(() => {
 
 onMounted(() => {
   AOS.init({
-    duration: 1200,
+    duration: 800,
   });
 
 
@@ -186,7 +186,7 @@ const fetchSkill = async () => {
 
 
 
-<style>
+<style >
 :root {
   --rating-size: 10rem;
   --bar-size: 1rem;
@@ -341,9 +341,110 @@ const fetchSkill = async () => {
   .skills-area {
     margin: 2rem 1rem;
   }
+  .work-title-area h4 {
+    font-size: 35px;
+  }
+
+  .work-title-area p {
+    font-size: 16px;
+
+    width: 80%;
+  }
+
+  .work-title-area h5 {
+    font-size: 15px;
+  }
+
+  .work-card {
+    max-width: 100%;
+    flex: 0 380px;
+  }
+
+  .work-area {
+    margin: 2rem 1rem;
+  }
+
+  .work-card-text p {
+    font-size: 18px;
+  }
+
+  .work-btn a {
+    font-size: 14px;
+    border: 2px solid #470089;
+    border-radius: 10px;
+    padding: 0.5rem 0.8rem;
+  }
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .pages-title-area p {
+
+    width: 60%;
+
+  }
+
+  .skills-title-area h4 {
+    font-size: 35px;
+  }
+
+  .skills-title-area p {
+    font-size: 16px;
+
+    width: 80%;
+  }
+
+  .skills-title-area h5 {
+    font-size: 15px;
+  }
+
+  .skills-card {
+    max-width: 40%;
+    /* flex: 0 380px; */
+  }
+
+  .skills-area {
+    margin: 2rem 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .work-title-area h4 {
+    font-size: 35px;
+  }
+
+  .work-title-area p {
+    font-size: 16px;
+
+    width: 80%;
+  }
+
+  .work-title-area h5 {
+    font-size: 15px;
+  }
+
+  .work-card {
+    max-width: 100%;
+    flex: 0 380px;
+  }
+
+  .work-area {
+    display: block;
+
+    gap: 0;
+    margin: 2rem 8rem;
+
+  }
+
+  .work-card-text p {
+    font-size: 18px;
+  }
+
+  .work-btn a {
+    font-size: 14px;
+    border: 2px solid #470089;
+    border-radius: 10px;
+    padding: 0.5rem 0.8rem;
+  }
+}
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {}
 

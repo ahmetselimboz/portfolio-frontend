@@ -11,13 +11,13 @@
     <div class="about-panel">
       <div v-html="variables.result.desc1"></div>
       <div class="about-img">
-        <Lazyload class=''  :url="variables.result.mainImg"/> 
+        <Lazyload class='' :url="variables.result.mainImg" />
       </div>
       <div v-html="variables.result.desc2"></div>
       <div class="about-img-area">
-        <Lazyload class=''  :url="variables.result.sideImg1"/>
-        <Lazyload class=''  :url="variables.result.sideImg2"/>
-        <Lazyload class=''  :url="variables.result.sideImg3"/>
+        <Lazyload class='' :url="variables.result.sideImg1" />
+        <Lazyload class='' :url="variables.result.sideImg2" />
+        <Lazyload class='' :url="variables.result.sideImg3" />
       </div>
 
       <div v-html="variables.result.desc3"></div>
@@ -134,11 +134,11 @@ const fetchAbout = async (lang) => {
   .about-panel {
     margin: 1rem 0;
     padding: 2rem 1rem;
-    text-align: center;
+
   }
 
   .about-panel h5 {
-    width: 80% !important;
+    width: 90% !important;
   }
 
   .about-img {
@@ -154,9 +154,41 @@ const fetchAbout = async (lang) => {
     flex: 0 380px;
     margin: 1rem 0rem;
   }
+
+  .about-panel span {
+    font-size: 18px !important;
+  }
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .about-panel {
+    margin: 1rem 0;
+    padding: 2rem 1rem;
+
+  }
+
+  .about-panel h5 {
+    width: 90% !important;
+  }
+
+  .about-img {
+    width: 80%;
+    margin: 2rem auto;
+    border-radius: 5px;
+    box-shadow: #00000036 0 0 10px 5px;
+    overflow: hidden;
+  }
+
+  .about-img-area img {
+    max-width: 100%;
+    flex: 0 380px;
+    margin: 1rem 0rem;
+  }
+
+  .about-panel span {
+    font-size: 20px !important;
+  }
+}
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {}
 

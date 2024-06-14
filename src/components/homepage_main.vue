@@ -223,7 +223,7 @@ const fetchHomepage = async (lang) => {
   .main-title-area h4 {
     font-size: 30px;
     margin-top: 25px;
-    color: var(--black);
+    color: var(--purple);
     -webkit-text-stroke-width: 1.5px;
     -webkit-text-stroke-color: transparent;
     font-weight: 800;
@@ -242,6 +242,7 @@ const fetchHomepage = async (lang) => {
     width: 85%;
     box-shadow: #0901103f 10px 15px 10px 5px;
     margin: 0 auto;
+    height: auto;
   }
 
   .main-img:hover {
@@ -253,7 +254,68 @@ const fetchHomepage = async (lang) => {
   }
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .main-panel {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 1.2rem;
+  }
+
+  .main-img-area {
+    width: 100%;
+  }
+
+  .main-text-area {
+    width: 100%;
+    margin-left: 0rem;
+    margin-bottom: 50px;
+  }
+
+  .main-text {
+    margin: 1rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 85%;
+  }
+
+  .main-title-img {
+    box-shadow: #47008963 0 0 10px 3px;
+  }
+
+  .main-title-area h4 {
+    font-size: 30px;
+    margin-top: 25px;
+    color: var(--purple);
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: transparent;
+    font-weight: 800;
+  }
+
+  .main-text h3 {
+    font-size: 35px;
+  }
+
+  .main-text h6 {
+    font-size: 20px;
+    width: 100%;
+  }
+
+  .main-img {
+    width: 70%;
+    box-shadow: #0901103f 10px 15px 10px 5px;
+    margin: 0 auto;
+    height: auto;
+  }
+
+  .main-img:hover {
+    box-shadow: #09011055 10px 15px 10px 5px;
+  }
+
+  .main-img-img {
+    transform: scale(1.02);
+  }
+}
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {}
 
@@ -352,7 +414,34 @@ const fetchHomepage = async (lang) => {
   }
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .now-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+
+  .now-card {
+    width: 100%;
+    margin: 1rem 0rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .now-title-area h4 {
+    font-size: 35px;
+  }
+
+  #alt-title {
+  transform: translate(0, 0px);
+  font-weight: 400;
+  font-size: 18px;
+  margin: 0.5rem 1rem;
+  color: var(--gray);
+  transition: 0.2s ease-in-out;
+}
+}
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {}
 

@@ -10,9 +10,10 @@
       <li><router-link to="/about" class="nav-link">{{ $t('About') }}</router-link></li>
       <li><router-link to="/contact" class="nav-link">{{ $t('Contact') }}</router-link></li>
     </ul>
-    <div class="nav-mode" >
-      <i class="bx" @click="toggleMenu" :class="[variables.menuOpen ? 'bx-x' : 'bx-menu', 'res-nav-color']" id="menu"></i>
-      <LanguageSwitcher  :class="[variables.langOpen ? 'sun' : 'sun2', 'res-nav-color' ]"/>
+    <div class="nav-mode">
+      <i class="bx" @click="toggleMenu" :class="[variables.menuOpen ? 'bx-x' : 'bx-menu', 'res-nav-color']"
+        id="menu"></i>
+      <LanguageSwitcher :class="[variables.langOpen ? 'sun' : 'sun2', 'res-nav-color']" />
     </div>
   </nav>
   <div class="res-nav-panel" v-bind:class="{ 'res-nav-toggle': variables.menuOpen }">
@@ -22,7 +23,7 @@
       <li><router-link to="/blogs" class="res-nav-link">{{ $t('Blog') }}</router-link></li>
       <li><router-link to="/about" class="res-nav-link">{{ $t('About') }}</router-link></li>
       <li><router-link to="/contact" class="res-nav-link">{{ $t('Contact') }}</router-link></li>
-      <LanguageSwitcher style="margin-top: .8rem;"/>
+      <LanguageSwitcher style="margin-top: .8rem;" />
     </ul>
   </div>
 
@@ -188,8 +189,8 @@ nav {
     padding: 0 1rem;
   }
 
-  .sun2{
-    display:none
+  .sun2 {
+    display: none
   }
 
   .nav-menu {
@@ -221,7 +222,48 @@ nav {
   }
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  #menu {
+    display: block;
+    padding: 0 1rem;
+
+    font-size: 30px;
+
+
+  }
+
+  .sun2 {
+    display: none
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .nav-logo a {
+    font-family: "Poppins", sans-serif;
+    font-size: 28px;
+    color: var(--black);
+    font-weight: 800;
+  }
+
+  .nav-logo {
+    margin-left: 15px;
+  }
+
+  .nav-mode {
+    margin-right: 15px;
+    display: flex;
+  }
+
+  .background {
+    background: url("../assets/40.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+  }
+}
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {}
 

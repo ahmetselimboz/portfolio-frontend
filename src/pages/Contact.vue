@@ -271,7 +271,28 @@ const closeModal = () => {
   }
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .contact-button {
+    font-size: 14px;
+    border: 2px solid #470089;
+    padding: 0.8rem 1rem;
+  }
+
+  .contact-form-area textarea {
+    font-size: 15px;
+  }
+
+  .contact-input {
+    font-size: 15px;
+  }
+}
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {}
 

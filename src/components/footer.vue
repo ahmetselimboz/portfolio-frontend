@@ -324,7 +324,72 @@ export default {
     }
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+    }
+
+    .footer-box {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1rem 0;
+    }
+
+    .footer-info-box {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .footer-social {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        margin: 0.5rem 0;
+        transition: 0.2s ease-in-out;
+    }
+
+    .footer-logo-area h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 35px;
+        color: var(--black);
+        font-weight: 800;
+    }
+
+    .social-icon {
+        color: #470089;
+        font-size: 32px;
+        padding: 0.5rem;
+        transform: translate(0, 0);
+        transition: 0.2s ease-in-out;
+        border: 2px solid #470089;
+        border-radius: 50%;
+    }
+
+    .footer-h3 {
+        display: none;
+    }
+
+    .footer-social:hover .footer-h3 {
+        color: var(--black);
+    }
+
+    .footer-social:hover .social-icon {
+        transform: translate(0, -5px);
+    }
+
+    #footer-line {
+        display: block;
+    }
+}
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {}
 
