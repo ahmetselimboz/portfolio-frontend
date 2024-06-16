@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //const baseURL = "https://backend.ahmetselimboz.com.tr/api"
-const baseURL = import.meta.env.VITE_API_URL;
+const baseURL = process.env.VITE_API_URL;
 
 const appAxios = axios.create({
   baseURL: baseURL,
