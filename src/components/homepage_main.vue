@@ -72,6 +72,7 @@ onMounted(() => {
   AOS.init({
     duration: 1200,
   });
+  console.log(import.meta.env);
 })
 
 const switchStateText = computed(() => {
