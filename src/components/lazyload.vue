@@ -1,5 +1,5 @@
 <template>
-    <img v-lazy="props.url" :class="className" @load="handleImageLoad">
+    <img v-lazy="props.url" :class="className" @load="handleImageLoad" >
 </template>
 
 <script setup>
