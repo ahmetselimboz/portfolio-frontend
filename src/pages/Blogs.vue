@@ -47,6 +47,9 @@ import Loader from '../components/loader.vue';
 import { reactive, inject, onMounted, computed, onBeforeMount } from "vue"
 import store from '@/store';
 import Lazyload from '@/components/lazyload.vue';
+import { useHead } from '@vueuse/head';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
 
 
 const appAxios = inject("appAxios")
@@ -63,6 +66,10 @@ onMounted(() => {
 
 onBeforeMount(() => {
   store.commit("setLoading", true)
+
+  useHead({
+    title: t("Blog") + " | Ahmet Selim Boz",
+  });
 })
 
 
@@ -80,7 +87,7 @@ const fetchBlogs = async (lang) => {
 
   if (response.data.code == 200) {
     const data = await response.data;
-    variables.result = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    variables.result = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).filter(item=>item.show == true );
 
 
     store.commit("setLoading", false)

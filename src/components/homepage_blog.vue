@@ -75,7 +75,7 @@ const fetchHomepage = async (lang) => {
 
     if (response.data.code == 200) {
         const data = await response.data;
-        variables.result = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        variables.result = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).filter(item=>item.show == true );;
 
         return true
     } else {

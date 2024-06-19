@@ -4,7 +4,7 @@
     <div class="work-panel">
         <div class="work-detail-area">
             <div class="work-detail-img-area">
-                <Lazyload class='work-detail-img'  :url="variables.result.mainImg"/>
+                <Lazyload class='work-detail-img' :url="variables.result.mainImg" />
             </div>
             <div class="work-detail-text-area">
                 <h6>{{ variables.result.tag }}</h6>
@@ -48,6 +48,7 @@ import { useRoute } from "vue-router"
 import { computed, inject, onBeforeMount, onMounted, reactive } from 'vue';
 import store from '@/store';
 import Lazyload from '@/components/lazyload.vue';
+import { useHead } from '@vueuse/head';
 
 const route = useRoute()
 const appAxios = inject("appAxios")
@@ -57,8 +58,14 @@ const variables = reactive({
 })
 
 onBeforeMount(() => {
-  store.commit("setLoading", true)
+    store.commit("setLoading", true)
+
+    useHead({
+        title: "Work | Ahmet Selim Boz",
+    });
 })
+
+
 
 const switchStateText = computed(() => {
     const state = store.state; // Access state

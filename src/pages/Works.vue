@@ -99,6 +99,9 @@ import Loader from '../components/loader.vue';
 import { onMounted, reactive, inject, computed, onBeforeMount } from 'vue';
 import store from '@/store';
 import Lazyload from '@/components/lazyload.vue';
+import { useHead } from '@vueuse/head';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
 
 const appAxios = inject("appAxios")
 
@@ -110,6 +113,10 @@ const variables = reactive({
 
 onBeforeMount(() => {
   store.commit("setLoading", true)
+
+  useHead({
+    title: t("Work") + " | Ahmet Selim Boz",
+  });
 })
 
 onMounted(() => {
@@ -186,7 +193,7 @@ const fetchSkill = async () => {
 
 
 
-<style >
+<style>
 :root {
   --rating-size: 10rem;
   --bar-size: 1rem;
@@ -341,6 +348,7 @@ const fetchSkill = async () => {
   .skills-area {
     margin: 2rem 1rem;
   }
+
   .work-title-area h4 {
     font-size: 35px;
   }
@@ -407,6 +415,7 @@ const fetchSkill = async () => {
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .work-title-area h4 {
     font-size: 35px;
   }

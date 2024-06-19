@@ -73,8 +73,6 @@ onMounted(() => {
     duration: 1200,
   });
 
-  console.log(process.env);
-  console.log(import.meta.env);
 })
 
 const switchStateText = computed(() => {

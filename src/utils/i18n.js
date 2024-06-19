@@ -40,6 +40,11 @@ const messages = {
     Message:"Message",
     Send_Message:"Send Message",
     Got_Message: "Got Your Message",
+    Subscribe_Email: "Your Email Adress...",
+    Subscribe_Button: "Subscribe",
+    Subscribe_Desc: "To be informed about my posts;",
+    Title_Modal: "Already Subscribe",
+    Subs_Title_Modal:"Thanks"
   },
   tr: {
     Home: "Ana sayfa",
@@ -78,6 +83,11 @@ const messages = {
     Message:"Mesaj",
     Send_Message:"Mesaj Gönder",
     Got_Message: "Mesajınızı Aldım",
+    Subscribe_Email: "Email Adresiniz...",
+    Subscribe_Button: "Abone Ol",
+    Subscribe_Desc: "Paylaşımlarımdan haberdar olmak için;",
+    Title_Modal: "Zaten Abonesiniz",
+    Subs_Title_Modal:"Teşekkürler"
   },
 };
 

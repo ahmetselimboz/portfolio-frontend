@@ -1,4 +1,10 @@
 <template>
+    <div class="modal" v-if="variables.showModal">
+        <div class="modal-content">
+            <span class="close" @click="closeModal">&times;</span>
+            <p><i class='bx bx-check'></i>{{ $t('Subs_Title_Modal') }} :)</p>
+        </div>
+    </div>
     <footer class="footer">
         <div class="footer-box">
             <div class="footer-logo-area">
@@ -41,23 +47,46 @@
             </div>
         </div>
     </footer>
-    <div  class="footer-bottom">
-        <h4> 
+    <hr class="now-underline" />
+
+    <form class="subs-area" @submit.prevent="postData">
+        <div class="subs-logo-title">
+            <h6>{{ $t('Subscribe_Desc') }}</h6>
+        </div>
+        <div class="subs-input-area">
+            <input class="subs-input" type="email" name="email" v-model="variables.email" id=""
+                :placeholder="$t('Subscribe_Email')" required />
+            <button type="submit" class="subs-button">
+                {{ $t('Subscribe_Button') }}
+            </button>
+        </div>
+
+    </form>
+
+
+    <div class="footer-bottom">
+        <h4>
             {{ variables.date }} © <a :href="variables.result.linkedinUrl" target="_blank">Ahmet Selim Boz</a>
         </h4>
     </div>
 </template>
 
 <script setup>
+import store from '@/store';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { onMounted, reactive, inject } from 'vue';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
 
 const appAxios = inject("appAxios")
 
 const variables = reactive({
     result: {},
-    date:null
+    date: null,
+    email: null,
+    showModal: false,
+    titleModal: null
 })
 
 onMounted(() => {
@@ -72,7 +101,7 @@ onMounted(() => {
 
 const fetchHomepage = async () => {
     const response = await appAxios.get('/footer')
-  
+
     if (response.data.code == 200) {
         const data = await response.data;
         variables.result = data.data
@@ -82,35 +111,123 @@ const fetchHomepage = async () => {
         console.error("Something went wrong!");
     }
 }
-</script>
 
+const postData = async () => {
+    try {
 
-<!-- <script>
-export default {
-    data() {
-        return {
-            footerResult: null
+        const requestOptions = {
+            email: variables.email,
+            lang: store.state.lang == true ? 'TR' : 'EN'
+        };
+
+        const response = await appAxios.post(`/subscribe`, requestOptions);
+        console.log(response.data);
+        if (response.data.code == 200) {
+            variables.titleModal = t("Subs_Title_Modal")
+            const data = await response.data;
+
+            variables.showModal = true;
+
+            variables.email = '';
+            window.location.reload()
+        } else {
+            variables.email = '';
+            variables.showModal = true;
+            setTimeout(() => {
+                window.location.reload()
+            }, 3500)
         }
-    },
-    created() {
-        self = this
 
-        fetch('https://backend.ahmetselimboz.com.tr/api/footer')
-            .then(response => response.json())
-            .then(data => {
-                self.footerResult = data.data;
+    } catch (error) {
+        if (error.response.data.error == "Already subscribe") {
+            variables.titleModal =  t("Title_Modal")
+            variables.email = '';
+            variables.showModal = true;
 
-            })
-            .catch(error => {
-                console.error('Veriler getirilirken hata:', error);
-            });
+        }
+        variables.email = '';
+        // setTimeout(() => {
+        //     window.location.reload()
+        // }, 3500)
     }
 }
 
-</script> -->
+const closeModal = () => {
+    variables.showModal = false;
+
+}
+</script>
+
+
+
 
 
 <style scoped>
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #f3f3f3;
+    width: fit-content;
+    height: auto;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    padding: 1rem 2rem;
+
+}
+
+.modal-content p {
+    font-size: 24px;
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 600 !important;
+    color: var(--gray) !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.modal-content i {
+    font-size: 48px;
+    color: #00ff22 !important;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    right: 1%;
+    top: 0%;
+    font-size: 28px;
+    margin-left: 2rem;
+    font-weight: bold;
+    position: relative;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+
+
 .router-link-active {
     color: var(--purple) !important;
 }
@@ -121,7 +238,7 @@ export default {
     align-items: center;
     padding: 2rem 3rem;
     border-top: 3px solid #470089;
-    border-bottom: 3px solid #470089;
+
 }
 
 .footer-box {
@@ -257,6 +374,68 @@ export default {
     margin: 1rem;
 }
 
+.subs-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 3rem;
+    border-bottom: 3px solid #470089;
+    width: 100%;
+}
+
+.subs-input-area {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center
+}
+
+.subs-input {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    width: 40%;
+    color: var(--gray);
+    margin: 1rem .5rem;
+    padding: 1rem 1rem;
+    border: 2px solid var(--gray-faded);
+    border-radius: 5px;
+}
+
+.subs-button {
+    width: fit-content;
+    margin: 2rem .5rem;
+    color: var(--purple);
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    border: 3px solid #470089;
+    border-radius: 10px;
+    padding: 1rem;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.subs-button:hover {
+    background-color: var(--purple);
+    color: var(--white);
+    border: 3px solid #470089;
+}
+
+.subs-logo-title {
+    padding: 0rem 0;
+    text-align: center;
+}
+
+.subs-logo-title h6 {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--black);
+    transition: 0.2s ease-in-out;
+}
+
+
 @media screen and (max-width: 480px) {
     .footer {
         display: flex;
@@ -321,6 +500,67 @@ export default {
 
     #footer-line {
         display: block;
+    }
+
+    .subs-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 3rem;
+        border-bottom: 3px solid #470089;
+        width: 100%;
+    }
+
+    .subs-input-area {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center
+    }
+
+    .subs-input {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        width: 100%;
+        color: var(--gray);
+        margin: 1rem .5rem;
+        padding: 1rem 1rem;
+        border: 2px solid var(--gray-faded);
+        border-radius: 5px;
+    }
+
+    .subs-button {
+        width: fit-content;
+        margin: 2rem .5rem;
+        color: var(--purple);
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        border: 3px solid #470089;
+        border-radius: 10px;
+        padding: 1rem;
+        transition: 0.2s ease-in-out;
+        cursor: pointer;
+    }
+
+    .subs-button:hover {
+        background-color: var(--purple);
+        color: var(--white);
+        border: 3px solid #470089;
+    }
+
+    .subs-logo-title {
+        padding: 0 0 1rem 0;
+        text-align: center;
+    }
+
+    .subs-logo-title h6 {
+        font-size: 20px;
+        font-weight: 400;
+        color: var(--black);
+        transition: 0.2s ease-in-out;
     }
 }
 

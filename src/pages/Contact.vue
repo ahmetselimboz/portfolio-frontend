@@ -41,6 +41,9 @@ import { onMounted, reactive, inject, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import store from '@/store';
 import Loader from '../components/loader.vue';
+import { useHead } from '@vueuse/head';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
 
 const router = useRouter()
 const appAxios = inject("appAxios")
@@ -62,6 +65,9 @@ onMounted(() => {
 
 onBeforeMount(() => {
   store.commit("setLoading", true)
+  useHead({
+    title: t("Contact") + " | Ahmet Selim Boz",
+  });
 })
 
 const postData = async () => {

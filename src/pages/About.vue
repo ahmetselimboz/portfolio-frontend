@@ -37,7 +37,10 @@ import { computed, inject, onBeforeMount, onMounted, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 import store from '@/store';
 import Lazyload from '@/components/lazyload.vue';
+import { useHead } from '@vueuse/head';
 const appAxios = inject("appAxios")
+
+const { t } = useI18n()
 
 const variables = reactive({
   result: {}
@@ -51,6 +54,10 @@ onMounted(() => {
 
 onBeforeMount(() => {
   store.commit("setLoading", true)
+
+  useHead({
+    title: t("About") + " | Ahmet Selim Boz",
+  });
 })
 
 
