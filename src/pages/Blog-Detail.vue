@@ -238,6 +238,122 @@ const fetchWorks = async (lang) => {
     text-decoration: underline;
 }
 
+.blogs-area {
+    display: flex;
+    /* gap: 20px; */
+    margin: 2rem 8rem;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.blogs-card {
+    display: flex;
+    flex-direction: row;
+    margin: 2rem auto;
+    width: 80%;
+}
+
+.blogs-card-img-area {
+    max-width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    transform: translate(0, 0px);
+    transition: 0.2s ease-in-out;
+    box-shadow: #09011031 0 0 10px 3px;
+}
+
+.blogs-card a {
+    width: 100%;
+
+    display: block;
+}
+
+.blogs-card-img {
+    width: 100%;
+    transform: scale(1.0218);
+}
+
+.blogs-card-img-area:hover {
+    transform: translate(0, -10px);
+}
+
+.blogs-card-text {
+    padding: 1rem 0rem;
+    margin: 0 1rem;
+    width: 100%;
+}
+
+.blogs-card-tags {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+.blogs-card-text h5 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    margin: 0.2rem;
+    background-color: #8080809d;
+    padding: 0.1rem 0.4rem;
+    color: white;
+    border-radius: 5px;
+    transition: 0.2s ease-in-out;
+}
+
+.blogs-card-text h5:hover {
+    background-color: #470089;
+}
+
+.blogs-card-text a {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: var(--black);
+    transition: 0.2s ease-in-out;
+}
+
+.blogs-card-text a:hover {
+    color: var(--purple);
+}
+
+.blogs-card-text p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--gray);
+    margin: 0.5rem 0;
+    cursor: default;
+}
+
+.blogs-btn a {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    color: var(--purple);
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    border: 3px solid #470089;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+#blogs-icon {
+    font-size: 25px;
+    transform: translate(0, 0);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.blogs-btn a:hover #work-icon {
+    transform: translate(3px, 0);
+}
+
 @media screen and (max-width: 480px) {
     .blog-panel {
         margin: 1rem 0;
@@ -290,9 +406,108 @@ const fetchWorks = async (lang) => {
     .blog-content img {
         width: 100% !important;
     }
+
+    .blogs-card-text h5 {
+        margin: 0.2rem;
+    }
+
+    .blogs-title-area h4 {
+        font-size: 35px;
+    }
+
+    .blogs-title-area p {
+        font-size: 16px;
+
+        width: 80%;
+    }
+
+    .blogs-title-area h5 {
+        font-size: 15px;
+    }
+
+    .blogs-card {
+        display: flex;
+        flex-direction: column;
+        margin: 2rem auto;
+        width: 90%;
+    }
+
+    .blogs-area {
+        margin: 1rem 0;
+    }
+
+    .blogs-card-text {
+        padding: 1rem 0rem;
+        margin: 0;
+        width: 100%;
+    }
+
+    .blogs-card-text p {
+        font-size: 18px;
+    }
+
+    .blogs-btn a {
+        font-size: 18px;
+        border: 3px solid #470089;
+        border-radius: 10px;
+        padding: 0.8rem;
+    }
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+
+    .blogs-card-text h5 {
+        margin: 0.2rem;
+    }
+
+    .blogs-title-area h4 {
+        font-size: 35px;
+    }
+
+    .blogs-title-area p {
+        font-size: 16px;
+
+        width: 80%;
+    }
+
+    .blogs-title-area h5 {
+        font-size: 15px;
+    }
+
+    .blogs-card {
+        display: flex;
+        flex-direction: column;
+        margin: 2rem auto;
+        width: 70%;
+    }
+
+    .blogs-area {
+        margin: 1rem 0;
+    }
+
+    .blogs-card-text {
+        padding: 1rem 0rem;
+        margin: 0;
+        width: 100%;
+    }
+
+    .blogs-card-text p {
+        font-size: 18px;
+    }
+
+    .blogs-btn a {
+        font-size: 18px;
+        border: 3px solid #470089;
+        border-radius: 10px;
+        padding: 0.8rem;
+    }
+
+    .pages-title-area p {
+
+        width: 60%;
+
+    }
+}
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {}
 
