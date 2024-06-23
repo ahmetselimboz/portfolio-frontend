@@ -124,11 +124,12 @@ const fetchWorks = async (lang) => {
                 { property: 'og:title', content: variables.result.title },
                 { property: 'og:description', content: variables.result.desc.slice(0, 100) },
                 { property: 'og:image', content: variables.result.mainImg },
-                { property: 'og:url', content: window.location.href },
+                { property: 'og:url', content: "Ahmet Selim Boz" },
                 { name: 'twitter:card', content: 'summary_large_image' },
                 { name: 'twitter:title', content: variables.result.title },
                 { name: 'twitter:description', content: variables.result.desc.slice(0, 100) },
-                { name: 'twitter:image', content: variables.result.mainImg }
+                { name: 'twitter:image', content: variables.result.mainImg },
+                { name: 'keywords', content: variables.result.tags },
             ]
         });
 
