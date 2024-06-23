@@ -111,7 +111,7 @@ function getLastSixCharacters(str) {
 
 const fetchWorks = async (lang) => {
     const response = await appAxios.get(`/blogs/${getLastSixCharacters(route.params.slug)}?lang=${lang}`)
-    console.log(variables.result.tags);
+
     const tagArray = []
     if (response.data.code == 200) {
         const data = await response.data;
@@ -120,7 +120,7 @@ const fetchWorks = async (lang) => {
         variables.result.tags.forEach(element => {
             tagArray.push(element.tagName)
         });
-        console.log(tagArray);
+ 
         useHead({
             title: variables.result.title,
             meta: [
