@@ -111,12 +111,16 @@ function getLastSixCharacters(str) {
 
 const fetchWorks = async (lang) => {
     const response = await appAxios.get(`/blogs/${getLastSixCharacters(route.params.slug)}?lang=${lang}`)
-
+    console.log(variables.result.tags);
+    const tagArray = []
     if (response.data.code == 200) {
         const data = await response.data;
         variables.result = data.data.result
         variables.Data = data.data.data
-
+        variables.result.tags.forEach(element => {
+            tagArray.push(element.tagName)
+        });
+        console.log(tagArray);
         useHead({
             title: variables.result.title,
             meta: [
@@ -129,7 +133,7 @@ const fetchWorks = async (lang) => {
                 { name: 'twitter:title', content: variables.result.title },
                 { name: 'twitter:description', content: variables.result.desc.slice(0, 100) },
                 { name: 'twitter:image', content: variables.result.mainImg },
-                { name: 'keywords', content: variables.result.tags },
+                { name: 'keywords', content: tagArray },
             ]
         });
 
