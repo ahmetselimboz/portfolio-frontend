@@ -153,7 +153,7 @@ const fetchWorks = async (lang) => {
 
   if (response.data.code == 200) {
     const data = await response.data;
-    variables.homeWork = data.data.slice(0, 4).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    variables.homeWork = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     store.commit("setLoading", false)
 
     return true
@@ -168,7 +168,7 @@ const fetchExp = async (lang) => {
 
   if (response.data.code == 200) {
     const data = await response.data;
-    variables.ResultExp = data.data.slice(0, 3).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    variables.ResultExp = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return true
   } else {

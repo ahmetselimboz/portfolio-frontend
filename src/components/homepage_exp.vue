@@ -7,10 +7,10 @@
         {{ $t('Look_At_My_Work_Experience_Desc') }}
       </p>
     </div>
-    <div class="exp-area">
+    <div class="exp-area " data-aos="fade-up" >
       <template v-for="resultExp in variables.result">
         <div class="exp-row">
-          <div data-aos="fade-up" class="exp-card ">
+          <div class="exp-card ">
             <i class="bx bx-caret-right caret"></i>
             <Lazyload class='exp-img'  :url="resultExp.mainImg"/>
             <div class="exp-text-area">
@@ -50,7 +50,7 @@ onMounted(() => {
    
 
     AOS.init({
-        duration: 400,
+        duration: 100,
     });
 
 

@@ -69,7 +69,8 @@ const fetchHomepage = async (lang) => {
 
     if (response.data.code == 200) {
         const data = await response.data;
-        variables.result = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        console.log(data)
+        variables.result = data.data.splice(-4).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
         return true
     } else {

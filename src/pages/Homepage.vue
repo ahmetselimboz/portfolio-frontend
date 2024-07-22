@@ -27,7 +27,7 @@ import store from '@/store';
 
 onMounted(() => {
   AOS.init({
-    duration: 1200,
+    duration: 800,
   });
   store.commit("setLoading", false)
 })
