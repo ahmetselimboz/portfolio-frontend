@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="work-panel">
-      <div data-aos="fade-up" class="work-title-area">
+      <div class="work-title-area">
         <h5>{{ $t('Portfolio') }}</h5>
         <h4>{{ $t('Check_My_Works') }}</h4>
         <p>
@@ -10,7 +10,7 @@
       </div>
       <div class="work-area">
         <template v-for="item in variables.result">
-          <div data-aos="fade-in" class="work-card">
+          <div  class="work-card">
             <div class="work-card-img-area">
               <router-link :to="'/work/' + item.slug">
                 <Lazyload class='work-card-img'  :url="item.mainImg"/>
@@ -24,7 +24,7 @@
           </div>
         </template>
       </div>
-      <div data-aos="fade-up" class="work-btn">
+      <div class="work-btn">
         <router-link to="/works">{{ $t('See_All_Works') }}<i id="work-icon" class="bx bx-right-arrow-alt"></i></router-link>
       </div>
     </div>
@@ -34,8 +34,6 @@
 
 <script setup>
 import store from '@/store';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import { onMounted, reactive, inject, computed } from 'vue';
 import Lazyload from './lazyload.vue';
 
@@ -49,9 +47,6 @@ const variables = reactive({
 onMounted(() => {
     
 
-    AOS.init({
-        duration: 1000,
-    });
 
 
 })

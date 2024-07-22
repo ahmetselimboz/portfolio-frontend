@@ -73,8 +73,7 @@
 
 <script setup>
 import store from '@/store';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
 import { onMounted, reactive, inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n()
@@ -92,9 +91,6 @@ const variables = reactive({
 onMounted(() => {
     fetchHomepage()
     variables.date = new Date().getFullYear()
-    AOS.init({
-        duration: 1200,
-    });
 
 
 })

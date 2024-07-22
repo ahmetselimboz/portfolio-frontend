@@ -17,7 +17,7 @@
       </div>
       <div class="work-area">
         <template v-for="item in variables.homeWork">
-          <div data-aos="fade-in" class="work-card">
+          <div  class="work-card">
             <div class="work-card-img-area">
               <a :href="'/work/' + item.slug">
                 <Lazyload class='work-card-img' :url="item.mainImg" />
@@ -33,17 +33,17 @@
       </div>
     </div>
   </section>
-  <hr data-aos="fade-up" class="now-underline" />
+  <hr  class="now-underline" />
   <section id="exp-section">
     <div class="work-panel">
-      <div data-aos="fade-up" class="section-title">
+      <div  class="section-title">
         <h3>{{ $t('Experiences') }}</h3>
         <hr class="section-title-line" />
       </div>
-      <div class="exp-area-w">
+      <div class="exp-area-w" >
         <template v-for="resultExp in variables.ResultExp">
           <div class="exp-row-w" :id="resultExp._id">
-            <div data-aos="fade-up" class="exp-card-w">
+            <div  class="exp-card-w">
               <i class="bx bx-caret-right caret-w"></i>
               <Lazyload class='exp-img-w' :url="resultExp.mainImg" />
               <div class="exp-text-area-w">
@@ -58,17 +58,17 @@
       </div>
     </div>
   </section>
-  <hr data-aos="fade-up" class="now-underline" />
+  <hr  class="now-underline" />
   <section>
     <div class="work-panel">
-      <div data-aos="fade-up" class="section-title ">
+      <div  class="section-title ">
         <h3>{{ $t('Skills') }}</h3>
         <hr class="section-title-line" />
       </div>
       <div class="skills-area">
         <template v-for="(resultSkill, index) in variables.ResultSkill" :key="index">
 
-          <div data-aos="fade-in" class="skills-card">
+          <div class="skills-card">
             <div class="skills-card-text">
               <h5>{{ resultSkill.name }}</h5>
 
@@ -93,8 +93,7 @@
 <script setup>
 import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
 import Loader from '../components/loader.vue';
 import { onMounted, reactive, inject, computed, onBeforeMount } from 'vue';
 import store from '@/store';
@@ -120,9 +119,7 @@ onBeforeMount(() => {
 })
 
 onMounted(() => {
-  AOS.init({
-    duration: 800,
-  });
+
 
 
   fetchExp()

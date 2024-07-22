@@ -41,8 +41,7 @@
 <script setup>
 import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
 import Loader from '../components/loader.vue';
 import { reactive, inject, onMounted, computed, onBeforeMount } from "vue"
 import store from '@/store';
@@ -59,9 +58,7 @@ const variables = reactive({
 })
 
 onMounted(() => {
-  AOS.init({
-    duration: 1200,
-  });
+
 })
 
 onBeforeMount(() => {

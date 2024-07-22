@@ -42,8 +42,7 @@
 import Navbar from '../components/navbar.vue'
 import Loader from '../components/loader.vue';
 import Footer from '../components/footer.vue'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
 import { useRoute } from "vue-router"
 import { computed, inject, onBeforeMount, onMounted, reactive } from 'vue';
 import store from '@/store';

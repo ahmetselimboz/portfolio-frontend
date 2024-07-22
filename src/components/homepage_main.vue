@@ -25,26 +25,26 @@
   </section>
   <section>
     <div class="now-area">
-      <div data-aos="fade-in" class="now-title-area">
+      <div  class="now-title-area">
         <h4>{{ $t('Iam') }}</h4>
       </div>
       <div class="now-row">
-        <div v-if="variables.result.card1" data-aos="fade-up" data-aos-delay="0" class="now-card ">
+        <div v-if="variables.result.card1"  class="now-card ">
           <i class="bx bx-code-alt" id="icon"></i>
           <h2 id="title">{{ variables.result.card1.title }}</h2>
           <h4 id="alt-title"> {{ variables.result.card1.text }} </h4>
         </div>
-        <div v-if="variables.result.card2" data-aos="fade-up" data-aos-delay="100" class="now-card ">
+        <div v-if="variables.result.card2" class="now-card ">
           <i class="bx bx-crown" id="icon"></i>
           <h2 id="title"> {{ variables.result.card2.title }} </h2>
           <h4 id="alt-title"> {{ variables.result.card2.text }} </h4>
         </div>
-        <div v-if="variables.result.card3" data-aos="fade-up" data-aos-delay="200" class="now-card ">
+        <div v-if="variables.result.card3" class="now-card ">
           <i class="bx bx-book-open" id="icon"></i>
           <h2 id="title"> {{ variables.result.card3.title }} </h2>
           <h4 id="alt-title"> {{ variables.result.card3.text }} </h4>
         </div>
-        <div v-if="variables.result.card4" data-aos="fade-up" data-aos-delay="300" class="now-card  ">
+        <div v-if="variables.result.card4"  class="now-card  ">
           <i class="bx bx-briefcase-alt" id="icon"></i>
           <h2 id="title"> {{ variables.result.card4.title }} </h2>
           <h4 id="alt-title"> {{ variables.result.card4.text }} </h4>
@@ -57,8 +57,7 @@
 
 <script setup>
 import store from '@/store';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
 import { onMounted, reactive, inject, computed } from 'vue';
 import Lazyload from "../components/lazyload.vue"
 
@@ -69,9 +68,7 @@ const variables = reactive({
 })
 
 onMounted(() => {
-  AOS.init({
-    duration: 1200,
-  });
+
 
 })
 

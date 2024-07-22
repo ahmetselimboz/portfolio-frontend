@@ -27,16 +27,16 @@
             </div>
         </div>
     </section>
-    <hr data-aos="fade-up" class="now-underline" />
+    <hr  class="now-underline" />
     <section>
         <div class="work-panel">
-            <div data-aos="fade-up" class="section-title">
+            <div class="section-title">
                 <h3>{{ $t('Releated_Posts') }}</h3>
                 <hr class="section-title-line" />
             </div>
             <div class="blogs-area">
                 <template v-for="data in variables.Data">
-                    <div data-aos="fade-in" class="blogs-card">
+                    <div  class="blogs-card">
                         <a :href="'/blog/' + data.slug">
                             <div class="blogs-card-img-area">
                                 <Lazyload class='blogs-card-img' :url="data.mainImg" />
@@ -67,8 +67,7 @@
 import Navbar from '../components/navbar.vue'
 import Loader from '../components/loader.vue';
 import Footer from '../components/footer.vue'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
 import { computed, inject, onBeforeMount, onMounted, reactive, watch } from 'vue';
 import { useRoute } from "vue-router"
 import store from '@/store';
@@ -85,9 +84,7 @@ const variables = reactive({
 })
 
 onMounted(() => {
-    AOS.init({
-        duration: 1200,
-    });
+
 })
 
 

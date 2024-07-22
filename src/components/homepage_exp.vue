@@ -1,13 +1,13 @@
 <template>
   <div class="work-panel">
-    <div data-aos="fade-up" class="work-title-area">
+    <div  class="work-title-area">
       <h5>{{ $t('Jobs') }}</h5>
       <h4>{{ $t('Look_At_My_Work_Experience') }}</h4>
       <p>
         {{ $t('Look_At_My_Work_Experience_Desc') }}
       </p>
     </div>
-    <div class="exp-area " data-aos="fade-up" >
+    <div class="exp-area " >
       <template v-for="resultExp in variables.result">
         <div class="exp-row">
           <div class="exp-card ">
@@ -24,7 +24,7 @@
         </div>
       </template>
     </div>
-    <div data-aos="fade-up" class="work-btn">
+    <div  class="work-btn">
       <router-link to="/works#exp-section">{{ $t('See_All_Experiences') }}<i id="work-icon"
           class="bx bx-right-arrow-alt"></i></router-link>
     </div>
@@ -34,8 +34,7 @@
 
 <script setup>
 import store from '@/store';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
 import { onMounted, reactive, inject, computed } from 'vue';
 import Lazyload from './lazyload.vue';
 
@@ -49,9 +48,7 @@ const variables = reactive({
 onMounted(() => {
    
 
-    AOS.init({
-        duration: 100,
-    });
+
 
 
 })
