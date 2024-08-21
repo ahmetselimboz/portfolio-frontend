@@ -53,8 +53,8 @@ const routes = createRouter({
     },
     {
       path: "/privacy-policy",
-      name: "Contact",
-      component: () => import("./pages/Contact.vue"),
+      name: "PrivacyPolicy",
+      component: () => import("./pages/PrivacyPolicy.vue"),
     },
   ],
 });
