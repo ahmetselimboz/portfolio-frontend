@@ -1,6 +1,6 @@
 <template>
   <div class="loader" :class="{ 'loader-hidden': !isLoading }">
-    <img class="logo" src="https://image.ahmetselimboz.com/icons/qrcode.png"></img>
+    <img class="logo" src="https://cdn.ahmetselimboz.com/icons/qrcode.png"></img>
   </div>
 </template>
 
