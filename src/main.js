@@ -17,13 +17,13 @@ app.use(routes);
 app.provide("appAxios", appAxios);
 app.use(i18n);
 app.use(head);
-// app.use(VueGtag, {
+app.use(VueGtag, {
 //   appName: "ahmetselimboz.com",
 //   pageTrackerScreenviewEnabled: true,
-//   config: {
-//     id: "G-GVWQ2F2229",
-//   },
-// });
+  config: {
+    id: "G-GVWQ2F2229",
+  },
+});
 
 app.use(VueLazyLoad, {
     preLoad: 1.3,
